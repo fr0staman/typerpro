@@ -1,4 +1,4 @@
-<strong>Typerpro.</strong>
+<h1>Typerpro.</h1>
 
 Для встановлення потрібно:
 <h3>python,
