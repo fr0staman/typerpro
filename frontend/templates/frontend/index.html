@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name = 'viewport' content="width=device-width, initial-scale=1">
     <title>Typerpro</title>
-    {% load static%}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/index.css" %}"
     </head>
     <body>
         <div id="main">
             <div id="app"></div>
         </div>
-
+        {% load static %}
         <script src="{% static "frontend/main.js" %}"></script>
     </body>
 </html>
