@@ -5,10 +5,10 @@ from .models import Typer
 class TyperSerializer(serializers.ModelSerializer):
     class Meta:
         model = Typer
-        fields = ('id', 'nick', 'record')
+        fields = ('id', 'nick', 'record', 'guest_can_pause')
 
 
 class CreateMatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Typer
-        fields = ('nick', 'record')
+        fields = ('nick', 'record', 'guest_can_pause')
