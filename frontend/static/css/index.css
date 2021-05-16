@@ -14,18 +14,18 @@ html, body {
 	min-height: 100vh;
 }
 
-.header{
+.header {
 	background-color: white;
 	display: grid;
 	grid-template-columns: repeat(10, 1fr);
 	box-shadow: 0 4px 15px -5px rgba(0, 0, 0, 0.7);
 	width: 100%;
 	float: left;
-	margin: 40px auto;
+	margin: 10px auto;
 }
 
 .bar {
-	width: 200px;
+	width: 180px;
 	float: right;
 	margin: 10px;
 }
