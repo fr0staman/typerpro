@@ -33,11 +33,10 @@ class App extends React.Component {
 			// `Народе мій, замучений, розбитий, мов паралітик той на роздорожжу, людським презирством, ніби струпом, вкритий! Твоїм будущим душу я тривожу, від сорому, який нащадків пізних Палитиме, заснути я не можу.`,
 			// `Українська мова вважається наймилозвучнішою у світі. Вона дивує й захоплює багатством словника, безмежністю форм, плинністю. Цією мовою були написані неперевершені твори Шевченка, Франка, Лесі Українки, Коцюбинського.`,
 			// `Просто рандомний текст, який я набрав для того, щоб прямо зараз тестувати функцію набору, правильності введення, та й взагалі - поставте 5.`,
-            'даже бля этом так уже был все этом сказала когда ней ни ней него но если он вот я еще а были чем то.'
+            'даже для этом так уже был все этом сказала когда ней ни ней него но если он вот я еще а были чем то.'
 		];
 		const text = texts[Math.floor(Math.random() * texts.length)];
-		const words = text.split('');
-        console.log(words);
+		const words = text.split(' ');
 
 		this.setState({
 			text,
@@ -63,19 +62,16 @@ class App extends React.Component {
 		const lastLetter = inputValue[inputValue.length - 1];
 
 		const currentWord = words[0];
-        console.log("буковка:");
-        console.log(currentWord);
+
 		// перевіряє на пробіл і крапочЬку
-		if (inputValue === currentWord) {
-            
-            console.log("В сраці був");
+		if (lastLetter === ' ' || lastLetter === '.') {
+
 			// дивиться, чи є збіги між словами
-			if (lastLetter === ' ' || lastLetter === '.') {
+			if (inputValue.trim() === currentWord) {
 				// видаляє слово з масиву
 				// чистить текстбокс
-                const newWords = [...words.slice(1)];
-                const newCompletedWords = [...completedWords, currentWord];
-                console.log("Гімно видів");
+				const newWords = [...words.slice(1)];
+				const newCompletedWords = [...completedWords, currentWord];
 
 				// Рахує загальний прогрес
 				const progress =
@@ -85,31 +81,12 @@ class App extends React.Component {
 				this.setState({
 					words: newWords,
 					completedWords: newCompletedWords,
-                    inputValue: '',
+					inputValue: '',
 					completed: newWords.length === 0,
 					progress
-                });
-				
-				
-			} else {
-                const newWords = [...words.slice(1)];
-                const newCompletedWords = [...completedWords, currentWord];
-                console.log("або гімно видів");
-
-				// Рахує загальний прогрес
-				const progress =
-					(newCompletedWords.length /
-						(newWords.length + newCompletedWords.length)) *
-					100;
-				this.setState({
-					words: newWords,
-					completedWords: newCompletedWords,
-					completed: newWords.length === 0,
-					progress
-                });
-            };
+				});
+			}
 		} else {
-            console.log("нічо не видів");
 			this.setState({
 				inputValue,
 				lastLetter
@@ -132,7 +109,7 @@ class App extends React.Component {
 		);
 
 		// рахує КСЛ
-		const wpm = Math.ceil(wordsTyped / diff);
+		const wpm = Math.ceil(1.4*wordsTyped / diff);
 
 		this.setState({
 			wpm,
@@ -218,8 +195,8 @@ class App extends React.Component {
 									className={`word 
                                 ${highlight && 'green'} 
                                 ${currentWord && 'underline'}`}
-									key={w_idx}>{word}
-									{word.split(' ').map((letter, l_idx) => {
+									key={w_idx}>
+									{word.split('').map((letter, l_idx) => {
 										const isCurrentWord = w_idx === completedWords.length;
 										const isWronglyTyped = letter !== inputValue[l_idx];
 										const shouldBeHighlighted = l_idx < inputValue.length;
@@ -234,7 +211,7 @@ class App extends React.Component {
 														: ''
 												}`}
 												key={l_idx}>
-												{/* {letter} */}
+												{letter}
 											</span>
 										);
 									})}
