@@ -31,6 +31,7 @@ export default class Homepage extends Component{
                     </div>
             </header>
             </AppBar>
+            <div className = "center">
             <Switch>
                 <Route exact path='/'>
                     <Button color="primary" variant="contained" align="center" to="/create" component={Link}>
@@ -40,6 +41,7 @@ export default class Homepage extends Component{
                 <Route path='/create' component={CreateMatch} />
                 <Route path='/type' component={Typerpage} />    
             </Switch>
+            </div>
         </Router>
         );
     }
