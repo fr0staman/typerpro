@@ -22,12 +22,12 @@ export default class Homepage extends Component{
             
             <AppBar>
             <header class="header">
-                <Button color="blue" to="/">TYPERPRO </Button>
+                <Button color="blue" to="/create" component={Link}>TYPERPRO </Button>
                     <div class="bar">
-                        <Button color="blue" to="/">HallOfFame </Button>
+                        <Button color="blue" to="/type" component={Link}>HallOfFame </Button>
                     </div>
                     <div class="lgn">
-                    <Button color="blue" to="/">Логін </Button>
+                    <Button color="blue" to="/" component={Link}>Логін </Button>
                     </div>
             </header>
             </AppBar>

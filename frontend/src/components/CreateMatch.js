@@ -74,7 +74,7 @@ handleTyperButtonPressed()
                     </FormControl>
                 </Grid>
             <Grid item xs={12} align="center">
-                <Button color="secondary" variant="contained" onClick={this.handleTyperButtonPressed}>
+                <Button color="secondary" variant="contained" to="type" component={Link}>
                     Створити комнатушку
                 </Button>
             </Grid>
