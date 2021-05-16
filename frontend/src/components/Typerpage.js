@@ -200,7 +200,7 @@ class App extends React.Component {
 					<h4>Наберіть текст нижче</h4>
 					<progress value={progress} max='100'></progress>
 					<p className='text'>
-						{text.split(' ').map((word, w_idx) => {
+						{text.split('').map((word, w_idx) => {
 							let highlight = false;
 							let currentWord = false;
 
@@ -208,38 +208,21 @@ class App extends React.Component {
 							if (completedWords.length > w_idx) {
 								highlight = true;
 							}
+                            else {
+                                highlight = false;
+                            }
 
 							if (completedWords.length === w_idx) {
 								currentWord = true;
 							}
-
-							return (
-								<span
-									className={`word 
-                                ${highlight && 'green'} 
-                                ${currentWord && 'underline'}`}
-									key={w_idx}>{word}
-									{word.split(' ').map((letter, l_idx) => {
-										const isCurrentWord = w_idx === completedWords.length;
-										const isWronglyTyped = letter !== inputValue[l_idx];
-										const shouldBeHighlighted = l_idx < inputValue.length;
-
-										return (
-											<span
-												className={`letter ${
-													isCurrentWord && shouldBeHighlighted
-														? isWronglyTyped
-															? 'red'
-															: 'green'
-														: ''
-												}`}
-												key={l_idx}>
-												{/* {letter} */}
-											</span>
-										);
-									})}
-								</span>
-							);
+							    return (
+										<span
+											className={`word
+                                            ${highlight && 'green'} 
+                                            ${currentWord && 'underline'}`}>
+											{word}
+										</span>
+							        );
 						})}
 					</p>
 					<input
