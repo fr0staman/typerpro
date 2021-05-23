@@ -161,7 +161,7 @@ class App extends React.Component {
 						<br />
 						Вдалої гри, котики! *мур*
 					</p>
-					<Button color="blue" onClick={this.startGame}>
+					<Button color="primary" onClick={this.startGame}>
 						Почати!
 					</Button>
 				</div>

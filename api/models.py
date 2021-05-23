@@ -17,4 +17,5 @@ class Typer(models.Model):
     nick = models.CharField(max_length=16, unique=True)
     host = models.CharField(max_length=50, unique=True)
     record = models.FloatField(max_length=6)
-    guest_can_pause = models.BooleanField(default=False)
+    guest_can_pause = models.BooleanField(null=False, default=False)
+    created_at = models.DateTimeField(auto_now_add=True)

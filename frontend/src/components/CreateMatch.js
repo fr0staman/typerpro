@@ -18,12 +18,38 @@ defaultVotes = 2;
             questCanPause: true,
             votesToSkip: this.defaultVotes,
         };
+        this.handleTyperButtonPressed = this.handleTyperButtonPressed.bind(this);
+        this.handleVotesChange = this.handleVotesChange.bind(this);
+        this.handleGuestCanPauseChange = this.handleGuestCanPauseChange.bind(this);
     }
 
-handleTyperButtonPressed()
-{
-    console.log(this.state)
-}
+    handleVotesChange(e)
+    {
+        this.setState({
+            votesToSkip: e.target.value,
+        });
+    }
+
+    handleGuestCanPauseChange(e){
+        this.setState({
+            guestCanPause: e.target.value === "true" ? true : false,
+        })
+    }
+
+    handleTyperButtonPressed(){
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                votes_to_skip: this.state.votesToSkip,
+                guest_can_pause:this.state.guestCanPause
+            })
+        };
+        fetch('/api/create-room', requestOptions)
+        .then((response) => response.json())
+        .then((data) => this.props.history.push('/room/' + data.code));
+    }
+
     render() {
         return <Grid container spacing={1}>
             <Grid item xs={12} align="center">
@@ -47,7 +73,7 @@ handleTyperButtonPressed()
                         />
                         <FormControlLabel value = "true"
                         value="false"
-                        control={<Radio color = 'red'/>}
+                        control={<Radio color = 'secondary'/>}
                         label="Завалити"
                         labelPlacement="bottom"
                         />
@@ -74,7 +100,8 @@ handleTyperButtonPressed()
                     </FormControl>
                 </Grid>
             <Grid item xs={12} align="center">
-                <Button color="secondary" variant="contained" to="type" component={Link}>
+                <Button color="secondary" variant="contained" 
+                onClick={this.handleTyperButtonPressed}>
                     Створити комнатушку
                 </Button>
             </Grid>

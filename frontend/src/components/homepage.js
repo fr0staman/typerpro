@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Typerpage from './Typerpage'
+import Room from './Room'
 import CreateMatch from './CreateMatch'
 import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
@@ -18,16 +19,15 @@ export default class Homepage extends Component{
 
     render() {
         return (
-        <Router>
-            
+        <Router>    
             <AppBar>
-            <header class="header">
-                <Button color="blue" to="/create" component={Link}> TYPERPRO </Button>
-                    <div class="bar">
-                        <Button color="blue" to="/type" component={Link}>HallOfFame </Button>
+            <header className="header">
+                <Button color="secondary" to="/create" component={Link}> TYPERPRO </Button>
+                    <div className="bar">
+                        <Button color="primary" to="/type" component={Link}> HallOfFame </Button>
                     </div>
-                    <div class="lgn">
-                    <Button color="blue" to="/" component={Link}>Логін </Button>
+                    <div className="lgn">
+                    <Button color="primary" to="/" component={Link}> Логін </Button>
                     </div>
             </header>
             </AppBar>
@@ -39,7 +39,8 @@ export default class Homepage extends Component{
                     </Button>
                     </Route>
                 <Route path='/create' component={CreateMatch} />
-                <Route path='/type' component={Typerpage} />    
+                <Route path='/type' component={Typerpage} />
+                <Route path='/room/:roomCode' component={Room} />
             </Switch>
             </div>
         </Router>

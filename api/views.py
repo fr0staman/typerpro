@@ -1,7 +1,6 @@
-from django.db.models import query
 from django.shortcuts import render
 from rest_framework import generics, serializers, status
-from .serializers import TyperSerializer, CreateMatchSerializer
+from .serializers import Typer, TyperSerializer, CreateMatchSerializer
 from .models import Typer
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -9,6 +8,21 @@ from rest_framework.response import Response
 class TyperView(generics.CreateAPIView):
     queryset = Typer.objects.all()
     serializer_class = TyperSerializer
+
+class GetRoom(APIView):
+    serializer_class = TyperSerializer
+    lookup_url_kwarg = 'code'
+
+    def get(self, request, format=None):
+        code = request.GET.get(self.lookup_url_kwarg)
+        if code != None:
+            room = Typer.objects.filter(code=code)
+            if len(room) > 0:
+                data = TyperSerializer(room[0]).data
+                data['is_host'] = self.request.session.session_key == room[0].host
+                return Response(data, status=status.HTTP_200_OK)
+            return Response({'Room Not Found': 'Invalid Room Code.'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'Bad Request':'Code parameter not found in request'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CreateTyperView(APIView):
@@ -27,11 +41,11 @@ class CreateTyperView(APIView):
             if queryset.exists():
                 typer = queryset[0]
                 typer.guest_can_pause = guest_can_pause
-                typer.save(update_fields=['guest_can_pause'])
+                typer.save(update_fields=['guest_can_pause', 'nick'])
                 return Response(TyperSerializer(typer).data, status=status.HTTP_200_OK)
             else:
                 typer = Typer(host=host, guest_can_pause=guest_can_pause)
                 typer.save()
-                return Response(TyperSerializer(typer).data, status=status.HTTP_202)
+                return Response(TyperSerializer(typer).data, status=status.HTTP_202_ACCEPTED)
 
         return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
