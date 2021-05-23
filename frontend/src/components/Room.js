@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Button from '@material-ui/core/Button'
+import { Link } from "react-router-dom";
 
 export default class Room extends Component {
     constructor(props){
@@ -29,6 +31,7 @@ export default class Room extends Component {
         return <div>
             <h3>{this.roomCode}</h3>
             <p>Нікнейм: {this.nickname}</p>
+            <Button color="secondary" to="/type" component={Link}> Грати </Button>
         </div>
     }
 }

@@ -65,7 +65,7 @@ defaultVotes = 2;
                         </div>
                     </FormHelperText>
                     <RadioGroup row defaultValue='true'
-                    onchange={this.handleGuestCanPauseChange}>
+                    onChange={this.handleGuestCanPauseChange}>
                         <FormControlLabel
                         value="true"
                         control={<Radio color = 'primary'/>}
