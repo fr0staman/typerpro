@@ -17,6 +17,7 @@ defaultVotes = 2;
         this.state = {
             guestCanPause: true,
             votesToSkip: this.defaultVotes,
+            nickname: ""
         };
         this.handleTyperButtonPressed = this.handleTyperButtonPressed.bind(this);
         this.handleVotesChange = this.handleVotesChange.bind(this);
@@ -29,7 +30,11 @@ defaultVotes = 2;
             votesToSkip: e.target.value,
         });
     }
-
+    handleNicknameChange(e){
+        this.setState({
+            nickname: e.target.value,
+        });
+    }
     handleGuestCanPauseChange(e){
         this.setState({
             guestCanPause: e.target.value === "true" ? true : false,
@@ -42,7 +47,8 @@ defaultVotes = 2;
             headers: {'Content-Type': 'application/json' },
             body: JSON.stringify({
                 votes_to_skip: this.state.votesToSkip,
-                guest_can_pause:this.state.guestCanPause
+                guest_can_pause: this.state.guestCanPause,
+                nick: this.state.nickname
             })
         };
         fetch('/api/create-room', requestOptions)
@@ -101,6 +107,12 @@ defaultVotes = 2;
                         </FormHelperText>
                     </FormControl>
                 </Grid>
+            <Grid item xs={12} align="center">
+                <TextField required={true} 
+                id="standard-basic" 
+                label="Нікнейм"
+                defaultValue={this.nickname} />
+            </Grid>
             <Grid item xs={12} align="center">
                 <Button color="secondary" variant="contained" 
                 onClick={this.handleTyperButtonPressed}>

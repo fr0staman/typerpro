@@ -35,12 +35,13 @@ class CreateTyperView(APIView):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             guest_can_pause = serializer.data.get('guest_can_pause')
-            code = serializer.data.get('code')
+            nick = serializer.data.get('nick')
             host = self.request.session.session_key
             queryset = Typer.objects.filter(host=host)
             if queryset.exists():
                 typer = queryset[0]
                 typer.guest_can_pause = guest_can_pause
+                typer.nick = nick
                 typer.save(update_fields=['guest_can_pause', 'nick'])
                 return Response(TyperSerializer(typer).data, status=status.HTTP_200_OK)
             else:

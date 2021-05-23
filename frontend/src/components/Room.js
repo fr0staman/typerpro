@@ -28,10 +28,10 @@ export default class Room extends Component {
         });
     }
     render() {
-        return <div>
+        return <div align="center">
             <h3>{this.roomCode}</h3>
             <p>Нікнейм: {this.nickname}</p>
-            <Button color="secondary" to="/type" component={Link}> Грати </Button>
+            <Button size="large" color="secondary" to="/type" component={Link}> Грати </Button>
         </div>
     }
 }
