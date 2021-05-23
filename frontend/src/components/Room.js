@@ -7,6 +7,7 @@ export default class Room extends Component {
             votesToSkip: 2,
             guestCanPause: false,
             isHost: false,
+            nickname: "",
         };
         this.roomCode = this.props.match.params.roomCode;
         this.getRoomDetails();
@@ -19,16 +20,15 @@ export default class Room extends Component {
             this.setState({
                 votesToSkip: data.votes_to_skip,
                 guestCanPause: data.guest_can_pause,
-                isHost: data.is_host
+                isHost: data.is_host,
+                nickname: data.nick,
             })
         });
     }
     render() {
         return <div>
             <h3>{this.roomCode}</h3>
-            <p>Голоси: {this.state.votesToSkip}</p>
-            <p>Скільки надо: {this.state.guestCanPause.toString()}</p>
-            <p>Хост: {this.state.isHost.toString()}</p>
+            <p>Нікнейм: {this.nickname}</p>
         </div>
     }
 }

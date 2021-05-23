@@ -15,7 +15,7 @@ defaultVotes = 2;
     constructor(props) {
         super(props);
         this.state = {
-            questCanPause: true,
+            guestCanPause: true,
             votesToSkip: this.defaultVotes,
         };
         this.handleTyperButtonPressed = this.handleTyperButtonPressed.bind(this);
@@ -64,7 +64,8 @@ defaultVotes = 2;
                             Так набирати чи нє?
                         </div>
                     </FormHelperText>
-                    <RadioGroup row defaultValue='true'>
+                    <RadioGroup row defaultValue='true'
+                    onchange={this.handleGuestCanPauseChange}>
                         <FormControlLabel
                         value="true"
                         control={<Radio color = 'primary'/>}
@@ -84,6 +85,7 @@ defaultVotes = 2;
                     <FormControl>
                         <TextField required={true}
                         type="number"
+                        onChange={this.handleVotesChange}
                         defaultValue={this.defaultVotes}
                         inputProps={
                             {

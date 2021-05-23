@@ -14,8 +14,8 @@ def generate_unique_code():
 # Create your models here.
 class Typer(models.Model):
     code = models.CharField(max_length=8, default=generate_unique_code, unique=True)
-    nick = models.CharField(max_length=16, unique=True)
-    host = models.CharField(max_length=50, unique=True)
-    record = models.FloatField(max_length=6)
+    nick = models.CharField(max_length=16, default="", unique=True)
+    host = models.CharField(max_length=50, default="", unique=True)
+    record = models.FloatField(max_length=6, default=0)
     guest_can_pause = models.BooleanField(null=False, default=False)
     created_at = models.DateTimeField(auto_now_add=True)
