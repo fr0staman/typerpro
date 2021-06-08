@@ -180,6 +180,14 @@ class App extends React.Component {
 
 		if (completed) {
 			return (
+				<div>
+					<div className="container">
+						<strong>
+							До речі.
+							Щоб не лізти за мишкою:
+							Ctrl + Enter
+						</strong>
+					</div>
 				<div className='container'>
 					<GlobalHotKeys keyMap={keyMap} handlers={chotodeloet} />
 					<h2>
@@ -188,6 +196,7 @@ class App extends React.Component {
 					<button className='start-btn' onClick={this.startGame}>
 						Зіграти знову!
 					</button>
+				</div>
 				</div>
 			);
 		}

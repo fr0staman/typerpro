@@ -53,10 +53,10 @@ export default class Homepage extends Component{
                      </Typography>
                     
                      </Button>
-                    <div className="bar">
+                    <div>
                         <Button color="secondary" to="/type" component={Link}> HallOfFame </Button>
                     </div>
-                    <div className="lgn">
+                    <div>
                     <Button color="secondary" to="/" component={Link}> Логін </Button>
                     </div>
                     </Grid>
