@@ -4,6 +4,8 @@ import Room from './Room'
 import CreateMatch from './CreateMatch'
 import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
+import Toolbar from "@material-ui/core/Toolbar"
+import Typography from "@material-ui/core/Typography"
 import { 
     BrowserRouter as Router, 
     Switch, 
@@ -11,31 +13,61 @@ import {
     Link, 
     Redirect }
      from "react-router-dom";
+import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid'
+
+const theme = createMuiTheme({
+    typography: {
+        subtitle1:{
+            fontSize: 32,
+            fontStyle:'Italic',
+            fontWeight: 600,
+            lineHeight: 1,
+            color: '#ff79c6',
+        },
+    },
+});
 
 export default class Homepage extends Component{
     constructor(props) {
         super(props);
     }
 
-    render() {
+    
+    
+
+    render() {   
         return (
-        <Router>    
-            <AppBar>
-            <header className="header">
-                <Button color="secondary" to="/create" component={Link}> TYPERPRO </Button>
+        <Router>
+            <ThemeProvider theme={theme}>  
+            <AppBar style={{background: '#21252b'}}>
+            <Toolbar>
+            <Grid
+      justify="space-between" // Add it here :)
+      container 
+      spacing={24}
+    >
+                <Button to="/create" component={Link}>
+                    <Typography variant="subtitle1">
+                     TYPERPRO 
+                     </Typography>
+                    
+                     </Button>
                     <div className="bar">
-                        <Button color="primary" to="/type" component={Link}> HallOfFame </Button>
+                        <Button color="secondary" to="/type" component={Link}> HallOfFame </Button>
                     </div>
                     <div className="lgn">
-                    <Button color="primary" to="/" component={Link}> Логін </Button>
+                    <Button color="secondary" to="/" component={Link}> Логін </Button>
                     </div>
-            </header>
+                    </Grid>
+            </Toolbar>
             </AppBar>
+            </ThemeProvider>
             <div className = "center">
             <Switch>
                 <Route exact path='/'>
                     <Button color="primary" variant="contained" align="center" to="/create" component={Link}>
-                    НЄ
+                    Далі буде...
                     </Button>
                     </Route>
                 <Route path='/create' component={CreateMatch} />

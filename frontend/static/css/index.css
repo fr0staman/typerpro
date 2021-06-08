@@ -1,7 +1,9 @@
 html, body {
 	height: 100%;
     padding: 0;
-    background-image: url('https://static.tildacdn.com/tild3532-6539-4963-b265-393935366435/DSC_0036.jpg');
+	
+    /*background-image: url('https://static.tildacdn.com/tild3532-6539-4963-b265-393935366435/DSC_0036.jpg');*/
+	background-color: #282c34;
 	background-size: cover;
 	background-position: center center;
 	display: flex;
@@ -29,7 +31,8 @@ html, body {
 }
 
 .header {
-	background-color: white;
+	/*background-color: white;*/
+	background-color: #282c34;
 	display: grid;
 	grid-template-columns: repeat(10, 1fr);
 	box-shadow: 0 4px 15px -5px rgba(0, 0, 0, 0.7);

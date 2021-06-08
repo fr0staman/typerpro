@@ -224,7 +224,7 @@ class App extends React.Component {
 						type='text'
 						onChange={this.handleChange}
 						value={inputValue}
-						autofocus={started ? 'true' : 'false'}
+						autoFocus={started ? 'true' : 'false'}
 					/>
 				</div>
 			</div>
