@@ -1,11 +1,14 @@
 import React,{Component} from 'react';
 import ReactDOM from "react-dom";
 import Button from '@material-ui/core/Button';
+import { GlobalHotKeys } from 'react-hotkeys'
 // class App extends React.Component {
 // 	state = {
 		
 // 	}
 // }
+
+
 class App extends React.Component {
 	state = {
 		text: '',
@@ -136,6 +139,12 @@ class App extends React.Component {
 	};
 
 	render() {
+		const keyMap = {
+			'SNAP_LEFT': ["ctrl+enter"],
+		}
+		const chotodeloet = {
+			'SNAP_LEFT': this.startGame,
+		}
 		const {
 			text,
 			inputValue,
@@ -172,6 +181,7 @@ class App extends React.Component {
 		if (completed) {
 			return (
 				<div className='container'>
+					<GlobalHotKeys keyMap={keyMap} handlers={chotodeloet} />
 					<h2>
 						Ваша кількість зн/хв: <strong>{wpm}</strong>
 					</h2>
@@ -227,6 +237,7 @@ class App extends React.Component {
 						autoFocus={started ? 'true' : 'false'}
 					/>
 				</div>
+				
 			</div>
 		);
 	}
