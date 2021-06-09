@@ -59,9 +59,9 @@ defaultVotes = 2;
     render() {
         return <Grid container spacing={1}>
             <Grid item xs={12} align="center">
-                <Typography component='h4' variant='h4'>
+                
                     Набирати чи не набирати...
-                </Typography>
+                
             </Grid>
             <Grid item xs={12} align="center">
                 <FormControl component="fieldset">
@@ -72,7 +72,7 @@ defaultVotes = 2;
                     </FormHelperText>
                     <RadioGroup row defaultValue='true'
                     onChange={this.handleGuestCanPauseChange}>
-                        <FormControlLabel
+                        {/* <FormControlLabel
                         value="true"
                         control={<Radio color = 'primary'/>}
                         label="Ідьом?"
@@ -83,7 +83,7 @@ defaultVotes = 2;
                         control={<Radio color = 'secondary'/>}
                         label="Завалити"
                         labelPlacement="bottom"
-                        />
+                        /> */}
                     </RadioGroup>
                 </FormControl>
             </Grid>
@@ -125,5 +125,6 @@ defaultVotes = 2;
                 </Button>
             </Grid>
         </Grid>
+        
     }
 }

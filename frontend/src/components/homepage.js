@@ -20,9 +20,10 @@ const theme = createMuiTheme({
     typography: {
         subtitle1:{
             fontSize: 32,
-            fontStyle:'Italic',
+            fontFamily: 'Montserrat',
+            // fontStyle:'Italic',
             fontWeight: 600,
-            lineHeight: 1,
+            lineHeight: 1.167,
             color: '#ff79c6',
         },
     },
@@ -51,7 +52,6 @@ export default class Homepage extends Component{
                     <Typography variant="subtitle1">
                      TYPERPRO 
                      </Typography>
-                    
                      </Button>
                     <div>
                         <Button color="secondary" to="/type" component={Link}> HallOfFame </Button>
