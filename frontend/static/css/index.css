@@ -1,8 +1,6 @@
 html, body {
 	height: 100%;
     padding: 0;
-	
-    /*background-image: url('https://static.tildacdn.com/tild3532-6539-4963-b265-393935366435/DSC_0036.jpg');*/
 	background-color: #282c34;
 	background-size: cover;
 	background-position: center center;
@@ -83,7 +81,6 @@ p {
 
 .container {
 	/*box-shadow: 0 4px 15px -5px rgba(0, 0, 0, 0.7);
-	
 	border: 2px solid #000;*/
 	background-color: #282c34;
 	padding: 30px;
@@ -92,7 +89,7 @@ p {
 	text-align: center;
 	font-family: 'Montserrat';
 	font-size: 28px;
-    font-weight: 400;
+    font-weight: 300;
 	color: #d1d0c5;
 }
 
@@ -102,12 +99,27 @@ p {
 }
 
 .container input {
-	background-color: #282c34;
-	color: #d1d0c5;
-	padding: 12px 0px;
+	/*background-color: #282c34;*/
+	
+	padding: 6px 0px;
 	font-size: 20px;
 	margin: 10px 0;
 	width: 100%;
+	
+    color: #d1d0c5;
+    width: 100%;
+    border-color: white;
+    height: 1.1876em;
+	/* padding: 6px 0 7px;*/
+    display: block;
+    min-width: 0;
+    background: none;
+    box-sizing: content-box;
+	margin: 10px 0;
+    font-size: 20px;
+    animation-duration: 10ms;
+    -webkit-tap-highlight-color: transparent;
+	
 }
 
 .start-btn {

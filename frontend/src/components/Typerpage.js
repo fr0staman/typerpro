@@ -1,23 +1,29 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField"
+import TextField from "@material-ui/core/TextField";
 import { GlobalHotKeys } from "react-hotkeys";
 
+const INTERVAL = 100;
+
 class App extends Component {
-  state = {
-    text: "",
-    inputValue: "",
-    lastLetter: "",
-    words: [],
-    completedWords: [],
-    completed: false,
-    startTime: undefined,
-    timeElapsed: 0,
-    wpm: 0,
-    started: false,
-    progress: 0,
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      text: "",
+      inputValue: "",
+      lastLetter: "",
+      words: [],
+      completedWords: [],
+      completed: false,
+      startTime: undefined,
+      timeElapsed: 0,
+      wpm: 0,
+      started: false,
+      progress: 0,
+      mistakes: 0,
+    };
+ }
 
   setText = () => {
     const texts = [
@@ -44,8 +50,11 @@ class App extends Component {
     this.setText();
 
     this.setState({
+      wpm: 0,
+      mistakes: 0,
       started: true,
       startTime: Date.now(),
+      timeElapsed: 0,
       completed: false,
       progress: 0,
     });
@@ -103,6 +112,7 @@ class App extends Component {
     } else {
       this.beep();
       this.setState({
+        mistakes: this.state.mistakes + 1,
         inputValue,
         lastLetter,
       });
@@ -144,15 +154,17 @@ class App extends Component {
       inputValue,
       completedWords,
       wpm,
-      timeElapsed,
+      timeElapsed = Clockers(),
       started,
       completed,
       progress,
+      mistakes,
     } = this.state;
 
     if (!started)
       return (
         <div className="container">
+          {console.log(Math.round(timeElapsed/INTERVAL))}
           <h2>Вітаємо вас в набиранні!</h2>
           <p>
             <strong>Правила:</strong> <br />
@@ -161,6 +173,7 @@ class App extends Component {
             <br />
             Вдалої гри, котики! *мур*
           </p>
+          <GlobalHotKeys keyMap={keyMap} handlers={chotodeloet} />
           <Button color="primary" variant="contained" onClick={this.startGame}>
             Почати!
           </Button>
@@ -180,6 +193,9 @@ class App extends Component {
             <h2>
               Ваша кількість зн/хв: <h5>{wpm}</h5>
             </h2>
+            <h2>
+              Помилки: <h5>{mistakes}</h5>
+            </h2>
             <button className="start-btn" onClick={this.startGame}>
               Зіграти знову!
             </button>
@@ -191,11 +207,12 @@ class App extends Component {
     return (
       <div>
         <div className="wpm">
-          
-		  <strong> Час: </strong>
+          <strong> Час: </strong>
           {Math.floor(timeElapsed * 60)} секунд{"  "}
           <strong>Зн/хв: </strong>
-		  {wpm}
+          {wpm} {"  "}
+          <strong>Помилки: </strong>
+          {mistakes}
         </div>
         <div className="container">
           <h4>Наберіть текст нижче</h4>
@@ -219,7 +236,8 @@ class App extends Component {
                 <span
                   className={`word
                     ${highlight && "green"} 
-                    ${currentWord && "underline"}`}>
+                    ${currentWord && "underline"}`}
+                >
                   {word}
                 </span>
               );
@@ -234,10 +252,10 @@ class App extends Component {
             value={inputValue}
             autoFocus={started ? "true" : "false"}
           /> */}
-		  <input
-		  	id="outlined-basic"
-			label="тиць сюди" 
-			variant="outlined"
+          <input
+            id="outlined-basic"
+            label="тиць сюди"
+            variant="outlined"
             type="text"
             onChange={this.handleChange}
             value={inputValue}
