@@ -21,9 +21,17 @@ const theme = createMuiTheme({
     subtitle1: {
       fontSize: 32,
       fontFamily: "Montserrat",
-      // fontStyle:'Italic',
+      
       fontWeight: 600,
       lineHeight: 1.167,
+      color: "#ff79c6",
+    },
+    h3: {
+      fontSize: 32,
+      fontFamily: "Montserrat",
+      
+      fontWeight: 400,
+      lineHeight: 1.5,
       color: "#ff79c6",
     },
   },
@@ -44,16 +52,17 @@ export default class Homepage extends Component {
                 <Button to="/create" component={Link}>
                   <Typography variant="subtitle1">TYPERPRO</Typography>
                 </Button>
-
+                <span></span>
+                <span></span>
                 <Button color="secondary" to="/type" component={Link}>
                   {" "}
                   HallOfFame{" "}
                 </Button>
-
                 <Button color="secondary" to="/" component={Link}>
                   {" "}
                   Логін{" "}
                 </Button>
+                <Typography variant="h3">fr0staman</Typography>
               </Grid>
             </Toolbar>
           </AppBar>

@@ -66,6 +66,12 @@ h4 {
 	margin: 0 0 5px;
 }
 
+h5 {
+	font-family: 'Montserrat';
+	font-size: 48px;
+    font-weight: 300;
+	color: white;
+}
 progress {
 	width: 100%;
 }
@@ -75,13 +81,18 @@ p {
 }
 
 .container {
-	box-shadow: 0 4px 15px -5px rgba(0, 0, 0, 0.7);
-	background-color: #fff;
-	border: 2px solid #000;
+	/*box-shadow: 0 4px 15px -5px rgba(0, 0, 0, 0.7);
+	
+	border: 2px solid #000;*/
+	background-color: #282c34;
 	padding: 30px;
 	width: 650px;
 	max-width: 100%;
 	text-align: center;
+	font-family: 'Montserrat';
+	font-size: 28px;
+    font-weight: 400;
+	color: #d1d0c5;
 }
 
 .container .text {
@@ -90,6 +101,8 @@ p {
 }
 
 .container input {
+	background-color: #282c34;
+	color: #d1d0c5;
 	padding: 12px 0px;
 	font-size: 20px;
 	margin: 10px 0;
@@ -105,31 +118,40 @@ p {
 }
 
 .wpm {
-  	background-color: #fff;
-  	border: 2px solid rgb(219, 150, 150);
+	color: #d1d0c5;
+  	background-color: #282c34;
 	position: fixed;
   	top: -130px;
 	width: 710px;
 	text-align: center;
+	font-family: 'Roboto Mono', monospace;
+    font-weight: 400;
+    user-select: none;
 }
 
-.green {
-	background-color: rgb(167, 218, 167);
-}
 
 .red {
 	background-color: rgba(255, 0, 0, 0.5);
 }
 
-.underline {
-	border-bottom: 1px solid #000;
-}
+
 
 .word {
 	font-size: 20px;
 	margin: 0px;
 	white-space: pre;
+	color: #d1d0c5;
 }
+
+.underline {
+	color: #e2b714;
+	border-bottom: 1px solid #e2b714;
+}
+
+.green {
+	color: rgb(95,92,92);
+}
+
 
 .share {
 	color: #38a1f3;

@@ -1,14 +1,10 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField"
 import { GlobalHotKeys } from "react-hotkeys";
-// class App extends React.Component {
-// 	state = {
 
-// 	}
-// }
-
-class App extends React.Component {
+class App extends Component {
   state = {
     text: "",
     inputValue: "",
@@ -29,7 +25,7 @@ class App extends React.Component {
       `Українська мова вважається наймилозвучнішою у світі. Вона дивує й захоплює багатством словника, безмежністю форм, плинністю. Цією мовою були написані неперевершені твори Шевченка, Франка, Лесі Українки, Коцюбинського.`,
       `Просто рандомний текст, який я набрав для того, щоб прямо зараз тестувати функцію набору, правильності введення, та й взагалі - поставте 5.`,
       "даже для этом так уже был все этом сказала когда ней ни ней него но если он вот я еще а были чем то.",
-      "Відлік десятилітньої історії Вишиванкового фестивалю розпочався саме тоді, коли сімдесят девять людей, убраних у виши́ванки, утворили вздовж Потьомкінських сходів так званий «живий ланцюг».",
+      "Відлік десятилітньої історії Вишиванкового фестивалю розпочався саме тоді, коли сімдесят девять людей, убраних у вишиванки, утворили вздовж Потьомкінських сходів так званий «живий ланцюг».",
       "Поля починаються за Мокрою Долиною і тягнуться на північ аж до Берищанського лісу. Майже посередині їх перерізує широкий і розлогий яр, по дну якого колись текла річечка, котра з роками всохлася до струмка.",
       "Так, ми справді не знаємо достоту ані дум наших пращурів, ані їхнього способу існування; ми не знаємо того, як вони силою свого розуму та душі створювали поеми й епоси, витворювали релігію і політику: ми не чітко уявляємо собі розвиток нашого народу: як він змінювався, розростався вшир, пристосовувався до нових умов...",
     ];
@@ -161,16 +157,11 @@ class App extends React.Component {
           <p>
             <strong>Правила:</strong> <br />
             Переписуйте слова, які зазначені вище. <br />
-            Правильно введені слова стануть{" "}
-            <span className="green">зеленими</span>.
-            <br />
-            Неправильно введені слова стануть{" "}
-            <span className="red">червоними</span>.
             <br />
             <br />
             Вдалої гри, котики! *мур*
           </p>
-          <Button color="primary" onClick={this.startGame}>
+          <Button color="primary" variant="contained" onClick={this.startGame}>
             Почати!
           </Button>
         </div>
@@ -187,7 +178,7 @@ class App extends React.Component {
           <div className="container">
             <GlobalHotKeys keyMap={keyMap} handlers={chotodeloet} />
             <h2>
-              Ваша кількість зн/хв: <strong>{wpm}</strong>
+              Ваша кількість зн/хв: <h5>{wpm}</h5>
             </h2>
             <button className="start-btn" onClick={this.startGame}>
               Зіграти знову!
@@ -227,15 +218,26 @@ class App extends React.Component {
               return (
                 <span
                   className={`word
-                                            ${highlight && "green"} 
-                                            ${currentWord && "underline"}`}
-                >
+                    ${highlight && "green"} 
+                    ${currentWord && "underline"}`}>
                   {word}
                 </span>
               );
             })}
           </p>
-          <input
+          {/* <TextField
+		  	id="outlined-basic"
+			label="тиць сюди" 
+			variant="outlined"
+            type="text"
+            onChange={this.handleChange}
+            value={inputValue}
+            autoFocus={started ? "true" : "false"}
+          /> */}
+		  <input
+		  	id="outlined-basic"
+			label="тиць сюди" 
+			variant="outlined"
             type="text"
             onChange={this.handleChange}
             value={inputValue}
