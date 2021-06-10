@@ -191,11 +191,11 @@ class App extends Component {
     return (
       <div>
         <div className="wpm">
+          
+		  <strong> Час: </strong>
+          {Math.floor(timeElapsed * 60)} секунд{"  "}
           <strong>Зн/хв: </strong>
-          {wpm}
-          <br />
-          <strong>Час: </strong>
-          {Math.floor(timeElapsed * 60)} секунд
+		  {wpm}
         </div>
         <div className="container">
           <h4>Наберіть текст нижче</h4>
