@@ -45,7 +45,7 @@ export default class CreateMatch extends Component {
   }
 
   handleTyperButtonPressed() {
-    if(this.state.nickname != "test" && this.state.nickname == "")
+    if(this.state.nickname != "test" || this.state.nickname.length == 0)
     {
     const requestOptions = {
       method: "POST",

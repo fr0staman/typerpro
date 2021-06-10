@@ -9,7 +9,7 @@ export default class Room extends Component {
       votesToSkip: 2,
       guestCanPause: false,
       isHost: false,
-      nickname: "",
+      nickname: "test",
     };
     this.roomCode = this.props.match.params.roomCode;
     this.getRoomDetails();
@@ -31,9 +31,9 @@ export default class Room extends Component {
     return (
       <div align="center">
         <h3>{this.roomCode}</h3>
-        <p>Нікнейм: {this.nickname}</p>
+        <p>Нікнейм: {this.state.nickname}</p>
         <Button size="large" color="secondary" to="/type" component={Link}>
-          {" "} Грати{" "}
+          {" "}Грати{" "}
         </Button>
       </div>
     );
