@@ -55,7 +55,8 @@ html, body {
 
 .center {
 	border-radius: 15px;
-	background-color: white;
+	background-color: #282c34;
+	color: #d1d0c5;
 	position: absolute;
 	top: 50%;
 	left: 50%;
