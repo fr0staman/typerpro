@@ -45,6 +45,8 @@ export default class CreateMatch extends Component {
   }
 
   handleTyperButtonPressed() {
+    if(this.state.nickname != "test" && this.state.nickname == "")
+    {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -56,6 +58,11 @@ export default class CreateMatch extends Component {
     fetch("/api/create-room", requestOptions)
       .then((response) => response.json())
       .then((data) => this.props.history.push("/room/" + data.code));
+    }
+    else
+    {
+      console.log("Заповни, мда");
+    }
   }
 
   render() {
