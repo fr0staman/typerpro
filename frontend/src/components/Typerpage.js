@@ -234,9 +234,7 @@ class App extends Component {
               }
               return (
                 <span
-                  className={`word
-                    ${highlight && "green"} 
-                    ${currentWord && "underline"}`}
+                  className={`word ${highlight && "green"} ${currentWord && "underline"}`}
                 >
                   {word}
                 </span>

@@ -33,8 +33,7 @@ export default class Room extends Component {
         <h3>{this.roomCode}</h3>
         <p>Нікнейм: {this.nickname}</p>
         <Button size="large" color="secondary" to="/type" component={Link}>
-          {" "}
-          Грати{" "}
+          {" "} Грати{" "}
         </Button>
       </div>
     );

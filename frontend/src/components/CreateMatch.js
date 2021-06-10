@@ -20,12 +20,13 @@ export default class CreateMatch extends Component {
       currentData: [],
       guestCanPause: true,
       votesToSkip: this.defaultVotes,
-      nickname: "",
+      nickname: "test",
     };
     this.ws = new WebSocket("ws://127.0.0.1:8888/");
     this.handleTyperButtonPressed = this.handleTyperButtonPressed.bind(this);
     this.handleVotesChange = this.handleVotesChange.bind(this);
     this.handleGuestCanPauseChange = this.handleGuestCanPauseChange.bind(this);
+    this.handleNicknameChange = this.handleNicknameChange.bind(this);
   }
   handleVotesChange(e) {
     this.setState({
@@ -48,7 +49,6 @@ export default class CreateMatch extends Component {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        votes_to_skip: this.state.votesToSkip,
         guest_can_pause: this.state.guestCanPause,
         nick: this.state.nickname,
       }),
@@ -124,6 +124,7 @@ export default class CreateMatch extends Component {
             required={true}
             id="standard-basic"
             label="Нікнейм"
+            onChange={this.handleNicknameChange}
             defaultValue={this.nickname}
           />
         </Grid>

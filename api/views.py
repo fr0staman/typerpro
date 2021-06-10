@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from rest_framework import generics, serializers, status
-from .serializers import Typer, TyperSerializer, CreateMatchSerializer
+from .serializers import TyperSerializer, CreateMatchSerializer
 from .models import Typer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-class TyperView(generics.CreateAPIView):
+class TyperView(generics.ListAPIView):
     queryset = Typer.objects.all()
     serializer_class = TyperSerializer
 
@@ -36,7 +36,6 @@ class CreateTyperView(APIView):
         if serializer.is_valid():
             guest_can_pause = serializer.data.get('guest_can_pause')
             nick = serializer.data.get('nick')
-            code = serializer.data.get('code')
             host = self.request.session.session_key
             queryset = Typer.objects.filter(host=host)
             if queryset.exists():
@@ -46,7 +45,7 @@ class CreateTyperView(APIView):
                 typer.save(update_fields=['guest_can_pause', 'nick'])
                 return Response(TyperSerializer(typer).data, status=status.HTTP_200_OK)
             else:
-                typer = Typer(host=host, guest_can_pause=guest_can_pause)
+                typer = Typer(host=host, guest_can_pause=guest_can_pause, nick=nick)
                 typer.save()
                 return Response(TyperSerializer(typer).data, status=status.HTTP_202_ACCEPTED)
 
