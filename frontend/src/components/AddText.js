@@ -40,10 +40,9 @@ export default class AddText extends Component {
           text: this.state.text,
         }),
       };
-      fetch("/api/create-text", requestOptions).then((response) =>
-        response.json()
-      );
-      //.then((data) => this.props.history.push("/room/" + data.code));
+      fetch("/api/create-text", requestOptions)
+        .then((response) => response.json())
+        .then((data) => this.props.history.push("/"));
     } else {
       console.log("Заповни, мда");
     }
@@ -53,18 +52,18 @@ export default class AddText extends Component {
     return (
       <Grid container spacing={1}>
         <Grid item xs={12} align="center">
-        <TextField
-              required={true}
-              type="number"
-              onChange={this.handleVocabulary}
-              defaultValue={this.vocabulary}
-              inputProps={{
-                min: 1,
-                style: { textAlign: "center" },
-              }}
-            />
+          <TextField
+            required={true}
+            type="number"
+            onChange={this.handleVocabulary}
+            defaultValue={this.vocabulary}
+            inputProps={{
+              min: 1,
+              style: { textAlign: "center" },
+            }}
+          />
           <FormHelperText>
-            <div align="center">Напиши, скільки кинути на пиво</div>
+            <div align="center">Напиши, який ID у словника</div>
           </FormHelperText>
           <Grid item xs={12} align="center">
             <TextField

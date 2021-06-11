@@ -84,7 +84,8 @@ export default class CreateMatch extends Component {
             <RadioGroup
               row
               defaultValue="true"
-              onChange={this.handleGuestCanPauseChange}>
+              onChange={this.handleGuestCanPauseChange}
+            >
               {/* <FormControlLabel
                         value="true"
                         control={<Radio color = 'primary'/>}
@@ -130,7 +131,8 @@ export default class CreateMatch extends Component {
           <Button
             color="secondary"
             variant="contained"
-            onClick={this.handleTyperButtonPressed}>
+            onClick={this.handleTyperButtonPressed}
+          >
             Піти друкувати
           </Button>
         </Grid>

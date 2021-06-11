@@ -21,7 +21,7 @@ const theme = createMuiTheme({
     subtitle1: {
       fontSize: 32,
       fontFamily: "Montserrat",
-      
+
       fontWeight: 600,
       lineHeight: 1.167,
       color: "#ff79c6",
@@ -29,7 +29,7 @@ const theme = createMuiTheme({
     h3: {
       fontSize: 32,
       fontFamily: "Montserrat",
-      
+
       fontWeight: 400,
       lineHeight: 1.5,
       color: "#ff79c6",
@@ -75,7 +75,8 @@ export default class Homepage extends Component {
                 variant="contained"
                 align="center"
                 to="/create"
-                component={Link}>
+                component={Link}
+              >
                 Створити заїзд
               </Button>
             </Route>
