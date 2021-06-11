@@ -55,7 +55,7 @@ export default class Homepage extends Component {
                 <span></span>
                 <Button color="secondary" to="/" component={Link}>
                   {" "}
-                  HallOfFame{" "}
+                  Hall Of Fame{" "}
                 </Button>
                 <Button color="secondary" to="/create" component={Link}>
                   {" "}
@@ -74,8 +74,7 @@ export default class Homepage extends Component {
                 variant="contained"
                 align="center"
                 to="/create"
-                component={Link}
-              >
+                component={Link}>
                 Створити заїзд
               </Button>
             </Route>

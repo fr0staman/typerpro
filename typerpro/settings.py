@@ -31,7 +31,11 @@ ALLOWED_HOSTS = [
     '192.168.1.8'
 ]
 
-
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 # Application definition
 
 INSTALLED_APPS = [

@@ -4,6 +4,9 @@ from .serializers import TyperSerializer, CreateMatchSerializer
 from .models import Typer
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+
+
 
 class TyperView(generics.ListAPIView):
     queryset = Typer.objects.all()
