@@ -45,22 +45,19 @@ export default class CreateMatch extends Component {
   }
 
   handleTyperButtonPressed() {
-    if(this.state.nickname != "test" || this.state.nickname.length == 0)
-    {
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        guest_can_pause: this.state.guestCanPause,
-        nick: this.state.nickname,
-      }),
-    };
-    fetch("/api/create-room", requestOptions)
-      .then((response) => response.json())
-      .then((data) => this.props.history.push("/room/" + data.code));
-    }
-    else
-    {
+    if (this.state.nickname != "test" || this.state.nickname.length == 0) {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          guest_can_pause: this.state.guestCanPause,
+          nick: this.state.nickname,
+        }),
+      };
+      fetch("/api/create-room", requestOptions)
+        .then((response) => response.json())
+        .then((data) => this.props.history.push("/room/" + data.code));
+    } else {
       console.log("Заповни, мда");
     }
   }
@@ -86,7 +83,6 @@ export default class CreateMatch extends Component {
     return (
       <Grid container spacing={1}>
         {console.log(this.state.currentData)}
-
         <Grid item xs={12} align="center">
           <FormControl component="fieldset">
             <RadioGroup

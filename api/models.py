@@ -18,3 +18,4 @@ class Typer(models.Model):
     host = models.CharField(max_length=50, default="", unique=True)
     guest_can_pause = models.BooleanField(null=False, default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    text = models.CharField(max_length=999, default="Тут був текст")

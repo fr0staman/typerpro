@@ -4,7 +4,7 @@ from .models import Typer
 class TyperSerializer(serializers.ModelSerializer):
     class Meta:
         model = Typer
-        fields = ('id', 'code', 'nick', 'host', 'guest_can_pause', 'created_at')
+        fields = ('id', 'code', 'nick', 'host', 'guest_can_pause', 'created_at', 'text')
 
 
 class CreateMatchSerializer(serializers.ModelSerializer):
