@@ -86,7 +86,7 @@ class CreateTextView(APIView):
                 return Response(TextSerializer(texts).data, status=status.HTTP_200_OK)
             else:
                 text = Texts(text=text)
-                typer.save()
+                texts.save()
                 return Response(TextSerializer(texts).data, status=status.HTTP_202_ACCEPTED)
 
         return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
