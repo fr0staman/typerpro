@@ -7,5 +7,6 @@ urlpatterns = [
     path('typer', csrf_exempt(TyperView.as_view())),
     path('create-room', csrf_exempt(CreateTyperView.as_view())),
     path('get-room', csrf_exempt(GetRoom.as_view())),
-    path('create-text', csrf_exempt(CreateTextView.as_view()))
+    path('create-text', csrf_exempt(CreateTextView.as_view())),
+    path('get-text', csrf_exempt(GetText.as_view()))
 ]

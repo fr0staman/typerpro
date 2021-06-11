@@ -56,12 +56,12 @@ class CreateTyperView(APIView):
 
 class GetText(APIView):
     serializer_class = TextSerializer
-    lookup_url_kwarg = 'code'
+    lookup_url_kwarg = 'id'
 
     def get(self, request, format=None):
-        code = request.GET.get(self.lookup_url_kwarg)
-        if code != None:
-            room = Texts.objects.filter(code=code)
+        id = request.GET.get(self.lookup_url_kwarg)
+        if id != None:
+            room = Texts.objects.filter(id=id)
             if len(room) > 0:
                 data = TextSerializer(room[0]).data
                 return Response(data, status=status.HTTP_200_OK)

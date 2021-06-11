@@ -6,11 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import { Link } from "react-router-dom";
-import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { TableContainer } from "@material-ui/core";
-import { Table } from "@material-ui/core";
 
 export default class CreateMatch extends Component {
   defaultVotes = 2;
@@ -88,8 +84,7 @@ export default class CreateMatch extends Component {
             <RadioGroup
               row
               defaultValue="true"
-              onChange={this.handleGuestCanPauseChange}
-            >
+              onChange={this.handleGuestCanPauseChange}>
               {/* <FormControlLabel
                         value="true"
                         control={<Radio color = 'primary'/>}
@@ -135,8 +130,7 @@ export default class CreateMatch extends Component {
           <Button
             color="secondary"
             variant="contained"
-            onClick={this.handleTyperButtonPressed}
-          >
+            onClick={this.handleTyperButtonPressed}>
             Піти друкувати
           </Button>
         </Grid>

@@ -14,6 +14,7 @@ import {
 } from "react-router-dom";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
+import AddText from "./AddText";
 
 const theme = createMuiTheme({
   typography: {
@@ -53,9 +54,9 @@ export default class Homepage extends Component {
                 </Button>
                 <span></span>
                 <span></span>
-                <Button color="secondary" to="/" component={Link}>
+                <Button color="secondary" to="/text" component={Link}>
                   {" "}
-                  Hall Of Fame{" "}
+                  Закинути свій текст{" "}
                 </Button>
                 <Button color="secondary" to="/create" component={Link}>
                   {" "}
@@ -78,6 +79,7 @@ export default class Homepage extends Component {
                 Створити заїзд
               </Button>
             </Route>
+            <Route path="/text" component={AddText} />
             <Route path="/create" component={CreateMatch} />
             {/* <Route path="/type" component={Typerpage} /> */}
             <Route path="/room/:roomCode" component={Room} />
