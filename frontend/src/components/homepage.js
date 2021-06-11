@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Typerpage from "./Typerpage";
 import Room from "./Room";
 import CreateMatch from "./CreateMatch";
 import Button from "@material-ui/core/Button";
@@ -49,16 +48,16 @@ export default class Homepage extends Component {
           <AppBar style={{ background: "#21252b" }}>
             <Toolbar>
               <Grid justify="space-between" container spacing={24}>
-                <Button to="/create" component={Link}>
+                <Button to="/" component={Link}>
                   <Typography variant="subtitle1">TYPERPRO</Typography>
                 </Button>
                 <span></span>
                 <span></span>
-                <Button color="secondary" to="/type" component={Link}>
+                <Button color="secondary" to="/" component={Link}>
                   {" "}
                   HallOfFame{" "}
                 </Button>
-                <Button color="secondary" to="/" component={Link}>
+                <Button color="secondary" to="/create" component={Link}>
                   {" "}
                   Логін{" "}
                 </Button>
@@ -81,7 +80,7 @@ export default class Homepage extends Component {
               </Button>
             </Route>
             <Route path="/create" component={CreateMatch} />
-            <Route path="/type" component={Typerpage} />
+            {/* <Route path="/type" component={Typerpage} /> */}
             <Route path="/room/:roomCode" component={Room} />
           </Switch>
         </div>
