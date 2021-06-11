@@ -76,7 +76,7 @@ export default class Homepage extends Component {
                 to="/create"
                 component={Link}
               >
-                Далі буде...
+                Створити заїзд
               </Button>
             </Route>
             <Route path="/create" component={CreateMatch} />
