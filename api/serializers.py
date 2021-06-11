@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Typer 
+from .models import Typer, Texts
 
 class TyperSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,3 +11,13 @@ class CreateMatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Typer
         fields = ('nick', 'guest_can_pause')
+
+class TextSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Texts
+        fields = '__all__'
+
+class CreateTextSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Texts
+        fields = '__all__'

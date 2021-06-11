@@ -18,7 +18,6 @@ def getText():
 
 # Create your models here.
 class Texts(models.Model):
-    id = models.AutoField(unique=True, primary_key=True)
     vocabulary = models.IntegerField(default=1)
     text = models.CharField(max_length=999, default="Тут має бути текст")
 

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics, serializers, status
-from .serializers import TyperSerializer, CreateMatchSerializer
-from .models import Typer
+from .serializers import TyperSerializer, CreateMatchSerializer, CreateTextSerializer,TextSerializer
+from .models import Typer, Texts
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
@@ -51,5 +51,42 @@ class CreateTyperView(APIView):
                 typer = Typer(host=host, guest_can_pause=guest_can_pause, nick=nick)
                 typer.save()
                 return Response(TyperSerializer(typer).data, status=status.HTTP_202_ACCEPTED)
+
+        return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
+
+class GetText(APIView):
+    serializer_class = TextSerializer
+    lookup_url_kwarg = 'code'
+
+    def get(self, request, format=None):
+        code = request.GET.get(self.lookup_url_kwarg)
+        if code != None:
+            room = Texts.objects.filter(code=code)
+            if len(room) > 0:
+                data = TextSerializer(room[0]).data
+                return Response(data, status=status.HTTP_200_OK)
+            return Response({'Room Not Found': 'Invalid Room Code.'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'Bad Request':'Code parameter not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+
+class CreateTextView(APIView):
+    serializer_class = CreateTextSerializer
+
+    def post(self, request, format="None"):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            text = serializer.data.get('text')
+            queryset = Texts.objects.filter()
+            if queryset.exists():
+                texts = queryset[0]
+                texts.text = text
+                texts.save(update_fields=['text'])
+                return Response(TextSerializer(texts).data, status=status.HTTP_200_OK)
+            else:
+                text = Texts(text=text)
+                typer.save()
+                return Response(TextSerializer(texts).data, status=status.HTTP_202_ACCEPTED)
 
         return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
