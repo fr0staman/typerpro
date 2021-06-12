@@ -43,7 +43,7 @@ export default class Room extends Component {
     };
     fetch("/api/leave-room", requestOptions).then((_response) => {
       this.props.leaveButtonPressed();
-      this.props.history.push("/");
+      this.props.history.push("/create");
       this.updateShowSetting = this.updateShowSetting.bind(this)
     });
   }
@@ -53,7 +53,7 @@ export default class Room extends Component {
       .then((response) => {
         if (!response.ok){
           this.props.leaveRoomCallback();
-          this.props.history.push("/");
+          this.props.history.push("/create");
         }
         return response.json()})
       .then((data) => {
@@ -195,9 +195,13 @@ export default class Room extends Component {
     const keyMap = {
       SNAP_LEFT: ["ctrl+enter"],
     };
-    const chotodeloet = {
+    const starting = {
       SNAP_LEFT: this.startGame,
     };
+
+    const recreating = {
+      SNAP_LEFT: this.leaveButtonPressed,
+    }
     const {
       text,
       inputValue,
@@ -222,7 +226,7 @@ export default class Room extends Component {
             <br />
             Вдалої гри, котики! *мур*
           </p>
-          <GlobalHotKeys keyMap={keyMap} handlers={chotodeloet} />
+          <GlobalHotKeys keyMap={keyMap} handlers={starting} />
           <Button color="primary" variant="contained" onClick={this.startGame}>
             Почати!
           </Button>
@@ -238,18 +242,17 @@ export default class Room extends Component {
             <strong>Щоб не лізти за мишкою: Ctrl + Enter</strong>
           </div>
           <div className="container">
-            <GlobalHotKeys keyMap={keyMap} handlers={chotodeloet} />
+            <GlobalHotKeys keyMap={keyMap} handlers={recreating} />
             <h2>
               Ваша кількість зн/хв: <h5>{wpm}</h5>
             </h2>
             <h2>
               Помилки: <h5>{mistakes}</h5>
             </h2>
-            <button className="start-btn" 
-            //onClick={this.startGame}
+            <Button color="secondary" 
             onClick={this.leaveButtonPressed}>
               Зіграти знову!
-            </button>
+            </Button>
           </div>
         </div>
       );
