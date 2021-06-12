@@ -36,6 +36,7 @@ export default class Room extends Component {
     this.getRoomDetails();
     this.leaveButtonPressed = this.leaveButtonPressed.bind(this);
     this.updateShowSetting = this.updateShowSetting.bind(this);
+    this.getUser()
   }
 
   leaveButtonPressed() {
@@ -62,11 +63,28 @@ export default class Room extends Component {
       });
   }
 
+
   updateShowSetting(value) {
     this.setState({
       showSettings: value,
     });
   }
+
+  getUser() {
+    fetch("/api/get-user" + "?id=" + 1)
+      .then((response) => {
+        if (!response.ok) {
+          this.props.history.push("/create");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        this.setState({
+          username: data.username,
+        });
+      });
+  }
+
   setText = () => {
     const text = this.state.text;
     // const texts = [
@@ -222,7 +240,7 @@ export default class Room extends Component {
       return (
         <div className="container">
           {console.log(Math.round(timeElapsed / INTERVAL))}
-          <h2>Вітаємо вас в набиранні!</h2>
+          <h2>Вітаємо {this.state.username} в набиранні!</h2>
           <p>
             <strong>Правила:</strong> <br />
             Переписуйте слова, які зазначені вище. <br />

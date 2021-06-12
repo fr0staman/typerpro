@@ -85,6 +85,7 @@ export default class Homepage extends Component {
     fetch("/api/get-user" + "?id=" + 1)
       .then((response) => {
         if (!response.ok) {
+          this.props.history.push("/create");
         }
         return response.json();
       })
@@ -97,7 +98,6 @@ export default class Homepage extends Component {
   render() {
     return (
       <Router>
-        getPlayers()
         <ThemeProvider theme={theme}>
           <AppBar style={{ background: "#21252b" }}>
             <Toolbar>

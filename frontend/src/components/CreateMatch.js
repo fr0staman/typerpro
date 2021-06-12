@@ -23,6 +23,7 @@ export default class CreateMatch extends Component {
     this.handleVotesChange = this.handleVotesChange.bind(this);
     this.handleGuestCanPauseChange = this.handleGuestCanPauseChange.bind(this);
     this.handleNicknameChange = this.handleNicknameChange.bind(this);
+    this.getUser()
   }
   handleVotesChange(e) {
     this.setState({
@@ -40,14 +41,30 @@ export default class CreateMatch extends Component {
     });
   }
 
+  getUser() {
+    fetch("/api/get-user" + "?id=" + 1)
+      .then((response) => {
+        if (!response.ok) {
+          this.props.history.push("/create");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        this.setState({
+          nickname: data.username,
+        });
+        this.handleTyperButtonPressed()
+      });
+  }
+
   handleTyperButtonPressed() {
     if (this.state.nickname != "test" || this.state.nickname.length == 0) {
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          guest_can_pause: this.state.guestCanPause,
           nick: this.state.nickname,
+          guest_can_pause: this.state.guestCanPause
         }),
       };
       fetch("/api/create-room", requestOptions)
