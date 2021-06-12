@@ -37,3 +37,8 @@ class CreatePlayer(serializers.ModelSerializer):
     class Meta:
         model = Players
         fields = 'username', 'password'
+
+class CreateGuest(serializers.ModelSerializer):
+    class Meta:
+        model = Players
+        fields = 'password', 'host'

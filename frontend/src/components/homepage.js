@@ -72,7 +72,7 @@ export default class Homepage extends Component {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        username: this.state.username,
+        //username: this.state.username,
         password: this.state.password
       }),
     };
