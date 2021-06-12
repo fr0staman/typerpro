@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '162.55.56.46',
     '127.0.0.1',
-    '192.168.1.8'
+    '192.168.1.7'
 ]
 
 REST_FRAMEWORK = {

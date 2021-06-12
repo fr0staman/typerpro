@@ -42,7 +42,7 @@ export default class Room extends Component {
       headers: {"Content-Type": "application/json" },
     };
     fetch("/api/leave-room", requestOptions).then((_response) => {
-      this.props.leaveRoomCallback();
+      this.props.leaveButtonPressed();
       this.props.history.push("/");
       this.updateShowSetting = this.updateShowSetting.bind(this)
     });

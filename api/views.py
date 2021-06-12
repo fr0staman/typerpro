@@ -31,7 +31,7 @@ class GetRoom(APIView):
         return Response({'Bad Request':'Code parameter not found in request'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class CreateTyperView(APIView):
+class CreateTyperView(generics.ListCreateAPIView):
     serializer_class = CreateMatchSerializer
 
     def post(self, request, format="None"):
@@ -85,7 +85,7 @@ class GetText(APIView):
             return Response({'Room Not Found': 'Invalid Room Code.'}, status=status.HTTP_404_NOT_FOUND)
         return Response({'Bad Request':'Code parameter not found in request'}, status=status.HTTP_400_BAD_REQUEST)
 
-class CreateTextView(APIView):
+class CreateTextView(generics.ListCreateAPIView):
     serializer_class = CreateTextSerializer
 
     def post(self, request, format="None"):
@@ -95,7 +95,7 @@ class CreateTextView(APIView):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             text = serializer.data.get('text')
-            queryset = Texts.objects.filter()
+            queryset = Texts.objects.filter(text=text)
             if queryset.exists():
                 texts = queryset[0]
                 texts.text = text
