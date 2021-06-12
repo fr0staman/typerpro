@@ -3,7 +3,7 @@ from django.db.models import query
 from django.http.response import JsonResponse
 from django.shortcuts import render
 from rest_framework import generics, serializers, status
-from .serializers import PlayerSerializer, TyperSerializer, CreateMatchSerializer, CreateTextSerializer,TextSerializer, UpdateMatchSerializer, Players, CreatePlayer
+from .serializers import PlayerSerializer, TyperSerializer, CreateMatchSerializer, CreateTextSerializer, TextSerializer, UpdateMatchSerializer, Players, CreatePlayer
 from .models import Typer, Texts, Players
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -142,7 +142,7 @@ class UpdateView(APIView):
         return Response({'Bad Request': 'Invalid Data...'}, status=status.HTTP_400_BAD_REQUEST)
 
 class CreatePlayersView(generics.ListCreateAPIView):
-    serializer_class = Players
+    serializer_class = CreatePlayer
 
     def post(self, request, format="None"):
         if not self.request.session.exists(self.request.session.session_key):
@@ -154,7 +154,7 @@ class CreatePlayersView(generics.ListCreateAPIView):
             password = serializer.data.get('password')
             userType = "GUEST"
             host = self.request.session.session_key
-            queryset = Typer.objects.filter(host=host)
+            queryset = Players.objects.filter()
             if queryset.exists():
                 typer = queryset[0]
                 typer.username = username
@@ -166,17 +166,18 @@ class CreatePlayersView(generics.ListCreateAPIView):
                 typer = Players(username=username, password=password, userType=userType, host=host)
                 typer.save()
                 return Response(PlayerSerializer(typer).data, status=status.HTTP_201_CREATED)
+        return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
 
 class GetPlayerView(APIView):
     serializer_class = PlayerSerializer
     lookup_url_kwarg = 'id'
 
     def get(self, request, format=None):
-        code = request.GET.get(self.lookup_url_kwarg)
-        if code != None:
+        id = request.GET.get(self.lookup_url_kwarg)
+        if id != None:
             room = Players.objects.filter(id=id)
             if len(room) > 0:
-                data = TyperSerializer(room[0]).data
+                data = PlayerSerializer(room[0]).data
                 return Response(data, status=status.HTTP_200_OK)
             return Response({'Room Not Found': 'Invalid Room Code.'}, status=status.HTTP_404_NOT_FOUND)
         return Response({'Bad Request':'Code parameter not found in request'}, status=status.HTTP_400_BAD_REQUEST)

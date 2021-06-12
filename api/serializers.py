@@ -34,5 +34,6 @@ class PlayerSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CreatePlayer(serializers.ModelSerializer):
+    class Meta:
         model = Players
         fields = 'username', 'password'

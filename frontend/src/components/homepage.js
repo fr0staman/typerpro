@@ -43,7 +43,11 @@ export default class Homepage extends Component {
     super(props);
     this.state = {
       roomCode: null,
+      username: "testing",
+      password: "testing"
     };
+    this.createGuest();
+    this.getUser();
     this.clearRoomCode = this.clearRoomCode.bind(this);
   }
 
@@ -57,15 +61,43 @@ export default class Homepage extends Component {
       });
   }
 
-  clearRoomCode(){
+  clearRoomCode() {
     this.setState({
       roomCode: null,
     });
   }
 
+  createGuest() {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password
+      }),
+    };
+    fetch("/api/create-user", requestOptions).then((response) =>
+      response.json()
+    );
+  }
+
+  getUser() {
+    fetch("/api/get-user" + "?id=" + 1)
+      .then((response) => {
+        if (!response.ok) {
+        }
+        return response.json();
+      })
+      .then((data) => {
+        this.setState({
+          username: data.username,
+        });
+      });
+  }
   render() {
     return (
       <Router>
+        getPlayers()
         <ThemeProvider theme={theme}>
           <AppBar style={{ background: "#21252b" }}>
             <Toolbar>
@@ -83,7 +115,7 @@ export default class Homepage extends Component {
                   {" "}
                   Логін{" "}
                 </Button>
-                <Typography variant="h3">fr0staman</Typography>
+                <Typography variant="h3">{this.state.username}</Typography>
               </Grid>
             </Toolbar>
           </AppBar>
@@ -108,10 +140,7 @@ export default class Homepage extends Component {
               path="/room/:roomCode"
               render={(props) => {
                 return (
-                  <Room
-                    {...props}
-                    leaveButtonPressed={this.clearRoomCode}
-                  />
+                  <Room {...props} leaveButtonPressed={this.clearRoomCode} />
                 );
               }}
             />
