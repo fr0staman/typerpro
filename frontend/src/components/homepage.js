@@ -15,6 +15,7 @@ import {
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import AddText from "./AddText";
+import "@babel/polyfill"
 
 const theme = createMuiTheme({
   typography: {
@@ -40,9 +41,10 @@ const theme = createMuiTheme({
 export default class Homepage extends Component {
   constructor(props) {
     super(props);
-    this.setState = {
+    this.state = {
       roomCode: null,
     }
+    this.componentDidMount()
   }
 
   async componentDidMount() {
@@ -50,11 +52,11 @@ export default class Homepage extends Component {
       .then((response) => response.json())
       .then((data) => {
         this.setState({
-          roomCode: data.code
-        })
+          roomCode: data.code,
+        });
       });
   }
-  
+
   render() {
     return (
       <Router>

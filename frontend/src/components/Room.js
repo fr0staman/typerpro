@@ -32,17 +32,19 @@ export default class Room extends Component {
     };
     this.roomCode = this.props.match.params.roomCode;
     this.getRoomDetails();
+    this.leaveButtonPressed = this.leaveButtonPressed.bind(this)
   }
 
   leaveButtonPressed() {
     const requestOptions = {
       method: "POST",
-      headers: {'Content-Type': "application/json" },
+      headers: {"Content-Type": "application/json" },
     };
     fetch("/api/leave-room", requestOptions).then((_response) => {
       this.props.history.push('/');
     });
   }
+
   getRoomDetails() {
     fetch("/api/get-room" + "?code=" + this.roomCode)
       .then((response) => response.json())
