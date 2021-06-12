@@ -29,33 +29,28 @@ export default class Room extends Component {
       guestCanPause: false,
       isHost: false,
       nickname: "test",
-      showSettings: false
+      showSettings: false,
+      newError: true,
     };
     this.roomCode = this.props.match.params.roomCode;
     this.getRoomDetails();
-    this.leaveButtonPressed = this.leaveButtonPressed.bind(this)
+    this.leaveButtonPressed = this.leaveButtonPressed.bind(this);
+    this.updateShowSetting = this.updateShowSetting.bind(this);
   }
 
   leaveButtonPressed() {
-    const requestOptions = {
-      method: "POST",
-      headers: {"Content-Type": "application/json" },
-    };
-    fetch("/api/leave-room", requestOptions).then((_response) => {
-      this.props.leaveButtonPressed();
-      this.props.history.push("/create");
-      this.updateShowSetting = this.updateShowSetting.bind(this)
-    });
+    this.props.history.push("/create");
   }
 
   getRoomDetails() {
     fetch("/api/get-room" + "?code=" + this.roomCode)
       .then((response) => {
-        if (!response.ok){
-          this.props.leaveRoomCallback();
+        if (!response.ok) {
+          this.props.leaveButtonPressed();
           this.props.history.push("/create");
         }
-        return response.json()})
+        return response.json();
+      })
       .then((data) => {
         this.setState({
           votesToSkip: data.votes_to_skip,
@@ -70,10 +65,10 @@ export default class Room extends Component {
   updateShowSetting(value) {
     this.setState({
       showSettings: value,
-    })
+    });
   }
   setText = () => {
-    const texts = this.state.text;
+    const text = this.state.text;
     // const texts = [
     //   `Народе мій, замучений, розбитий, мов паралітик той на роздорожжу, людським презирством, ніби струпом, вкритий! Твоїм будущим душу я тривожу, від сорому, який нащадків пізних Палитиме, заснути я не можу.`,
     //   `Українська мова вважається наймилозвучнішою у світі. Вона дивує й захоплює багатством словника, безмежністю форм, плинністю. Цією мовою були написані неперевершені твори Шевченка, Франка, Лесі Українки, Коцюбинського.`,
@@ -84,7 +79,6 @@ export default class Room extends Component {
     //   "Так, ми справді не знаємо достоту ані дум наших пращурів, ані їхнього способу існування; ми не знаємо того, як вони силою свого розуму та душі створювали поеми й епоси, витворювали релігію і політику: ми не чітко уявляємо собі розвиток нашого народу: як він змінювався, розростався вшир, пристосовувався до нових умов...",
     // ];
     //const text = texts[Math.floor(Math.random() * texts.length)];
-    const text = texts;
     const words = text.split("");
     console.log(words);
 
@@ -141,6 +135,7 @@ export default class Room extends Component {
           inputValue: "",
           completed: newWords.length === 0,
           progress,
+          newError: true,
         });
       } else {
         const newWords = [...words.slice(1)];
@@ -156,15 +151,24 @@ export default class Room extends Component {
           completed: newWords.length === 0,
           inputValue: "",
           progress,
+          newError: true,
         });
       }
     } else {
       this.beep();
-      this.setState({
-        mistakes: this.state.mistakes + 1,
-        inputValue,
-        lastLetter,
-      });
+      if (this.state.newError == true) {
+        this.setState({
+          mistakes: this.state.mistakes + 1,
+          inputValue,
+          lastLetter,
+          newError: false,
+        });
+      } else {
+        this.setState({
+          inputValue,
+          lastLetter,
+        });
+      }
     }
 
     this.calculateWPM();
@@ -201,7 +205,7 @@ export default class Room extends Component {
 
     const recreating = {
       SNAP_LEFT: this.leaveButtonPressed,
-    }
+    };
     const {
       text,
       inputValue,
@@ -236,6 +240,11 @@ export default class Room extends Component {
     if (!text) return <p>Завантаження...</p>;
 
     if (completed) {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      };
+      fetch("/api/leave-room", requestOptions)
       return (
         <div>
           <div className="container">
@@ -249,8 +258,7 @@ export default class Room extends Component {
             <h2>
               Помилки: <h5>{mistakes}</h5>
             </h2>
-            <Button color="secondary" 
-            onClick={this.leaveButtonPressed}>
+            <Button color="secondary" onClick={this.leaveButtonPressed}>
               Зіграти знову!
             </Button>
           </div>

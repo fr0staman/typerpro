@@ -3,8 +3,8 @@ from django.db.models import query
 from django.http.response import JsonResponse
 from django.shortcuts import render
 from rest_framework import generics, serializers, status
-from .serializers import TyperSerializer, CreateMatchSerializer, CreateTextSerializer,TextSerializer, UpdateMatchSerializer
-from .models import Typer, Texts
+from .serializers import PlayerSerializer, TyperSerializer, CreateMatchSerializer, CreateTextSerializer,TextSerializer, UpdateMatchSerializer, Players, CreatePlayer
+from .models import Typer, Texts, Players
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
@@ -140,3 +140,43 @@ class UpdateView(APIView):
             room.save(update_fields=['guest_can_pause', 'votes_to_skip'])
             return Response(TyperSerializer(room).data, status=status.HTTP_200_OK)
         return Response({'Bad Request': 'Invalid Data...'}, status=status.HTTP_400_BAD_REQUEST)
+
+class CreatePlayersView(generics.ListCreateAPIView):
+    serializer_class = Players
+
+    def post(self, request, format="None"):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            username = serializer.data.get('username')
+            password = serializer.data.get('password')
+            userType = "GUEST"
+            host = self.request.session.session_key
+            queryset = Typer.objects.filter(host=host)
+            if queryset.exists():
+                typer = queryset[0]
+                typer.username = username
+                typer.password = password
+                typer.userType = userType = "PLAYER"
+                typer.save(update_fields=['userType', 'username','password', 'userType'])
+                return Response(PlayerSerializer(typer).data, status=status.HTTP_200_OK)
+            else:
+                typer = Players(username=username, password=password, userType=userType, host=host)
+                typer.save()
+                return Response(PlayerSerializer(typer).data, status=status.HTTP_201_CREATED)
+
+class GetPlayerView(APIView):
+    serializer_class = PlayerSerializer
+    lookup_url_kwarg = 'id'
+
+    def get(self, request, format=None):
+        code = request.GET.get(self.lookup_url_kwarg)
+        if code != None:
+            room = Players.objects.filter(id=id)
+            if len(room) > 0:
+                data = TyperSerializer(room[0]).data
+                return Response(data, status=status.HTTP_200_OK)
+            return Response({'Room Not Found': 'Invalid Room Code.'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'Bad Request':'Code parameter not found in request'}, status=status.HTTP_400_BAD_REQUEST)

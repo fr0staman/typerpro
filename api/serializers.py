@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Typer, Texts
+from .models import Typer, Texts, Players
 
 class TyperSerializer(serializers.ModelSerializer):
     class Meta:
@@ -27,3 +27,12 @@ class CreateTextSerializer(serializers.ModelSerializer):
     class Meta:
         model = Texts
         fields = '__all__'
+
+class PlayerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Players
+        fields = '__all__'
+
+class CreatePlayer(serializers.ModelSerializer):
+        model = Players
+        fields = 'username', 'password'
