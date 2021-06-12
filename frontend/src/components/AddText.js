@@ -31,7 +31,7 @@ export default class AddText extends Component {
   }
 
   handleTextsButtonPressed() {
-    if (this.state.text != "" || this.state.nickname.length == 0) {
+    if (this.state.text != "" || this.state.vocabulary.length == 0) {
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -69,7 +69,7 @@ export default class AddText extends Component {
             <TextField
               required={true}
               id="standard-basic"
-              label="Нікнейм"
+              label="Текст"
               onChange={this.handleText}
               defaultValue={this.nickname}
             />

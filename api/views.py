@@ -85,7 +85,7 @@ class CreateTextView(APIView):
                 texts.save(update_fields=['text'])
                 return Response(TextSerializer(texts).data, status=status.HTTP_200_OK)
             else:
-                text = Texts(text=text)
+                texts = Texts(text=text)
                 texts.save()
                 return Response(TextSerializer(texts).data, status=status.HTTP_202_ACCEPTED)
 
