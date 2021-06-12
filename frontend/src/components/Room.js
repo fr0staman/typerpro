@@ -29,6 +29,7 @@ export default class Room extends Component {
       guestCanPause: false,
       isHost: false,
       nickname: "test",
+      showSettings: false
     };
     this.roomCode = this.props.match.params.roomCode;
     this.getRoomDetails();
@@ -43,6 +44,7 @@ export default class Room extends Component {
     fetch("/api/leave-room", requestOptions).then((_response) => {
       this.props.leaveRoomCallback();
       this.props.history.push("/");
+      this.updateShowSetting = this.updateShowSetting.bind(this)
     });
   }
 
@@ -65,6 +67,11 @@ export default class Room extends Component {
       });
   }
 
+  updateShowSetting(value) {
+    this.setState({
+      showSettings: value,
+    })
+  }
   setText = () => {
     const texts = this.state.text;
     // const texts = [
