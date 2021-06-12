@@ -12,6 +12,12 @@ class CreateMatchSerializer(serializers.ModelSerializer):
         model = Typer
         fields = ('nick', 'guest_can_pause')
 
+class UpdateMatchSerializer(serializers.ModelSerializer):
+    code = serializers.CharField(validators=[])
+    class Meta:
+        model = Typer
+        fields = ('nick', 'guest_can_pause', 'code')
+
 class TextSerializer(serializers.ModelSerializer):
     class Meta:
         model = Texts

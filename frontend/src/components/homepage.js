@@ -15,7 +15,7 @@ import {
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import AddText from "./AddText";
-import "@babel/polyfill"
+import "@babel/polyfill";
 
 const theme = createMuiTheme({
   typography: {
@@ -43,8 +43,8 @@ export default class Homepage extends Component {
     super(props);
     this.state = {
       roomCode: null,
-    }
-    this.componentDidMount()
+    };
+    this.clearRoomCode = this.clearRoomCode.bind(this);
   }
 
   async componentDidMount() {
@@ -55,6 +55,12 @@ export default class Homepage extends Component {
           roomCode: data.code,
         });
       });
+  }
+
+  clearRoomCode(){
+    this.setState({
+      roomCode: null,
+    });
   }
 
   render() {
@@ -98,7 +104,17 @@ export default class Homepage extends Component {
             <Route path="/text" component={AddText} />
             <Route path="/create" component={CreateMatch} />
             {/* <Route path="/type" component={Typerpage} /> */}
-            <Route path="/room/:roomCode" component={Room} />
+            <Route
+              path="/room/:roomCode"
+              render={(props) => {
+                return (
+                  <Room
+                    {...props}
+                    leaveButtonPressed={this.clearRoomCode}
+                  />
+                );
+              }}
+            />
           </Switch>
         </div>
       </Router>

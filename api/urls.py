@@ -1,6 +1,6 @@
 from functools import update_wrapper
 from django.urls import path
-from .views import TyperView, CreateTyperView, GetRoom, CreateTextView, GetText, UserInRoom, LeaveRoom
+from .views import TyperView, CreateTyperView, GetRoom, CreateTextView, GetText, UserInRoom, LeaveRoom, UpdateView
 from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
@@ -10,5 +10,6 @@ urlpatterns = [
     path('create-text', CreateTextView.as_view()),
     path('get-text', GetText.as_view()),
     path('user-in-room', UserInRoom.as_view()),
-    path('leave-room', LeaveRoom.as_view())
+    path('leave-room', LeaveRoom.as_view()),
+    path('update-room', UpdateView.as_view())
 ]
