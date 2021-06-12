@@ -34,6 +34,15 @@ export default class Room extends Component {
     this.getRoomDetails();
   }
 
+  leaveButtonPressed() {
+    const requestOptions = {
+      method: "POST",
+      headers: {'Content-Type': "application/json" },
+    };
+    fetch("/api/leave-room", requestOptions).then((_response) => {
+      this.props.history.push('/');
+    });
+  }
   getRoomDetails() {
     fetch("/api/get-room" + "?code=" + this.roomCode)
       .then((response) => response.json())
@@ -221,7 +230,9 @@ export default class Room extends Component {
             <h2>
               Помилки: <h5>{mistakes}</h5>
             </h2>
-            <button className="start-btn" onClick={this.startGame}>
+            <button className="start-btn" 
+            //onClick={this.startGame}
+            onClick={this.leaveButtonPressed}>
               Зіграти знову!
             </button>
           </div>

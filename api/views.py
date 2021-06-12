@@ -1,3 +1,4 @@
+from django.http.response import JsonResponse
 from django.shortcuts import render
 from rest_framework import generics, serializers, status
 from .serializers import TyperSerializer, CreateMatchSerializer, CreateTextSerializer,TextSerializer
@@ -46,13 +47,27 @@ class CreateTyperView(APIView):
                 typer.guest_can_pause = guest_can_pause
                 typer.nick = nick
                 typer.save(update_fields=['guest_can_pause', 'nick'])
+                self.request.session['room_code'] = typer.code
                 return Response(TyperSerializer(typer).data, status=status.HTTP_200_OK)
             else:
                 typer = Typer(host=host, guest_can_pause=guest_can_pause, nick=nick)
                 typer.save()
+                self.request.session['room_code'] = typer.code
                 return Response(TyperSerializer(typer).data, status=status.HTTP_202_ACCEPTED)
 
         return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
+
+class LeaveRoom(APIView):
+    def post(self, request, format="None"):
+        if 'room_code' in self.request.session:
+            self.request.session.pop('room_code')
+            host_id = self.request.session.pop('room_code')
+            room_results = Typer.objects.filter(host=host_id)
+            if len(room_results) > 0:
+                room = room_results[0]
+                room.delete()
+
+        return Response({'Message': 'Success'}, status=status.HTTP_200_OK)
 
 class GetText(APIView):
     serializer_class = TextSerializer
@@ -90,3 +105,13 @@ class CreateTextView(APIView):
                 return Response(TextSerializer(texts).data, status=status.HTTP_202_ACCEPTED)
 
         return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
+
+class UserInRoom(APIView):
+    def get(self, request, format=None):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+
+        data = {
+            'code': self.request.session.get('room_code')
+        }
+        return JsonResponse(data, status=status.HTTP_200_OK)
