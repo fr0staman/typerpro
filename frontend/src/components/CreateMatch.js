@@ -91,72 +91,72 @@ export default class CreateMatch extends Component {
       { Header: "Number", accessor: "number" },
     ];
 
-    return (
-      <Grid container spacing={1}>
-        {console.log(this.state.currentData)}
-        <Grid item xs={12} align="center">
-          <FormControl component="fieldset">
-            <RadioGroup
-              row
-              defaultValue="true"
-              onChange={this.handleGuestCanPauseChange}
-            >
-              {/* <FormControlLabel
-                        value="true"
-                        control={<Radio color = 'primary'/>}
-                        label="Ідьом?"
-                        labelPlacement="bottom"
-                        />
-                        <FormControlLabel value = "true"
-                        value="false"
-                        control={<Radio color = 'secondary'/>}
-                        label="Завалити"
-                        labelPlacement="bottom"
-                        /> */}
-            </RadioGroup>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} align="center">
-          <FormControl>
-            <TextField
-              required={true}
-              type="number"
-              onChange={this.handleVotesChange}
-              defaultValue={this.defaultVotes}
-              inputProps={{
-                min: 1,
-                style: { textAlign: "center" },
-              }}
-            />
-            <FormHelperText>
-              <div align="center">Напиши, скільки кинути на пиво</div>
-            </FormHelperText>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} align="center">
-          <TextField
-            required={true}
-            id="standard-basic"
-            label="Нікнейм"
-            onChange={this.handleNicknameChange}
-            defaultValue={this.nickname}
-          />
-        </Grid>
-        <Grid item xs={12} align="center">
-          <Button
-            color="secondary"
-            variant="contained"
-            onClick={this.handleTyperButtonPressed}
-          >
-            Піти друкувати
-          </Button>
-        </Grid>
-        <Grid item xs={12} align="center">
-          <Button color="primary" variant="contained" to="/" component={Link}>
-            нє.
-          </Button>
-        </Grid>
-      </Grid>
-    );
+    // return (
+    //   // <Grid container spacing={1}>
+    //   //   {console.log(this.state.currentData)}
+    //   //   <Grid item xs={12} align="center">
+    //   //     <FormControl component="fieldset">
+    //   //       <RadioGroup
+    //   //         row
+    //   //         defaultValue="true"
+    //   //         onChange={this.handleGuestCanPauseChange}
+    //   //       >
+    //   //         {/* <FormControlLabel
+    //   //                   value="true"
+    //   //                   control={<Radio color = 'primary'/>}
+    //   //                   label="Ідьом?"
+    //   //                   labelPlacement="bottom"
+    //   //                   />
+    //   //                   <FormControlLabel value = "true"
+    //   //                   value="false"
+    //   //                   control={<Radio color = 'secondary'/>}
+    //   //                   label="Завалити"
+    //   //                   labelPlacement="bottom"
+    //   //                   /> */}
+    //   //       </RadioGroup>
+    //   //     </FormControl>
+    //   //   </Grid>
+    //   //   <Grid item xs={12} align="center">
+    //   //     <FormControl>
+    //   //       <TextField
+    //   //         required={true}
+    //   //         type="number"
+    //   //         onChange={this.handleVotesChange}
+    //   //         defaultValue={this.defaultVotes}
+    //   //         inputProps={{
+    //   //           min: 1,
+    //   //           style: { textAlign: "center" },
+    //   //         }}
+    //   //       />
+    //   //       <FormHelperText>
+    //   //         <div align="center">Напиши, скільки кинути на пиво</div>
+    //   //       </FormHelperText>
+    //   //     </FormControl>
+    //   //   </Grid>
+    //   //   <Grid item xs={12} align="center">
+    //   //     <TextField
+    //   //       required={true}
+    //   //       id="standard-basic"
+    //   //       label="Нікнейм"
+    //   //       onChange={this.handleNicknameChange}
+    //   //       defaultValue={this.nickname}
+    //   //     />
+    //   //   </Grid>
+    //   //   <Grid item xs={12} align="center">
+    //   //     <Button
+    //   //       color="secondary"
+    //   //       variant="contained"
+    //   //       onClick={this.handleTyperButtonPressed}
+    //   //     >
+    //   //       Піти друкувати
+    //   //     </Button>
+    //   //   </Grid>
+    //   //   <Grid item xs={12} align="center">
+    //   //     <Button color="primary" variant="contained" to="/" component={Link}>
+    //   //       нє.
+    //   //     </Button>
+    //   //   </Grid>
+    //   // </Grid>
+    // );
   }
 }
