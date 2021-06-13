@@ -66,6 +66,22 @@ export default class Room extends Component {
       });
   }
 
+  createResult() {
+    if (this.state.nickname != "test" || this.state.nickname.length == 0) {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: this.state.nickname,
+          result: this.state.wpm
+        }),
+      };
+      fetch("/api/create-result", requestOptions)
+        .then((response) => response.json())
+    } else {
+      console.log("Заповни, мда");
+  }
+}
   updateShowSetting(value) {
     this.setState({
       showSettings: value,
@@ -293,6 +309,7 @@ export default class Room extends Component {
       };
       fetch("/api/leave-room", requestOptions);
       this.stopTimer();
+      this.createResult();
       return (
         <div>
           <div className="container">

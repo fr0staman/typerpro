@@ -42,3 +42,8 @@ class Players(models.Model):
     username = models.CharField(max_length=16, default=generate_nickname)
     host = models.CharField(max_length=50, default="", unique=True)
     password = models.CharField(max_length=16, default="password")
+
+class Results(models.Model):
+    result = models.IntegerField()
+    username = models.CharField(max_length=16, default="unnamed")
+    date = models.DateTimeField(auto_now_add=True)

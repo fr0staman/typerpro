@@ -3,8 +3,8 @@ from django.db.models import query
 from django.http.response import JsonResponse
 from django.shortcuts import render
 from rest_framework import generics, serializers, status
-from .serializers import CreateGuest, PlayerSerializer, TyperSerializer, CreateMatchSerializer, CreateTextSerializer, TextSerializer, UpdateMatchSerializer, Players, CreatePlayer
-from .models import Typer, Texts, Players
+from .serializers import CreateGuest, PlayerSerializer, TyperSerializer, CreateMatchSerializer, CreateTextSerializer, TextSerializer, UpdateMatchSerializer, Players, CreatePlayer, CreateResults, GetResults
+from .models import Results, Typer, Texts, Players
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
@@ -184,3 +184,25 @@ class GetPlayerView(APIView):
                 return Response(data, status=status.HTTP_200_OK)
             return Response({'Room Not Found': 'Invalid Room Code.'}, status=status.HTTP_404_NOT_FOUND)
         return Response({'Bad Request':'Code parameter not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+
+class GetResultsView(APIView):
+    serializer_class = GetResults
+
+class CreateResultView(generics.ListCreateAPIView):
+    serializer_class = CreateResults
+
+    def post(self, request, format="None"):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            result = serializer.data.get('result')
+            username = serializer.data.get('username')
+            typer = Results(
+            username=username, 
+            result=result, 
+            )
+            typer.save()
+            return Response(CreateResults(typer).data, status=status.HTTP_201_CREATED)
+        return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)

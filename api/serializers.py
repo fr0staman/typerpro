@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Typer, Texts, Players
+from .models import Typer, Texts, Players, Results
 
 class TyperSerializer(serializers.ModelSerializer):
     class Meta:
@@ -42,3 +42,13 @@ class CreateGuest(serializers.ModelSerializer):
     class Meta:
         model = Players
         fields = 'password', 'host'
+
+class GetResults(serializers.ModelSerializer):
+    class Meta:
+        model = Results
+        fields = '__all__'
+
+class CreateResults(serializers.ModelSerializer):
+    class Meta:
+        model = Results
+        fields = 'result', 'username'
