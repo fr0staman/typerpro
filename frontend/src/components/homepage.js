@@ -146,10 +146,10 @@ export default class Homepage extends Component {
                   {" "}
                   Закинути свій текст{" "}
                 </Button>
-                <Button color="secondary" to="/create" component={Link}>
+                {/* <Button color="secondary" to="/create" component={Link}>
                   {" "}
                   Логін{" "}
-                </Button>
+                </Button> */}
                 <Typography variant="h3">{this.state.username}</Typography>
               </Grid>
             </Toolbar>
