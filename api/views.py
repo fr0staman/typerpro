@@ -187,6 +187,17 @@ class GetPlayerView(APIView):
 
 class GetResultsView(APIView):
     serializer_class = GetResults
+    lookup_url_kwarg = 'page'
+
+    def get(self, request, format=None):
+        id = request.GET.get(self.lookup_url_kwarg)
+        if id != None:
+            room = Results.objects.filter(id=id)
+            if len(room) > 0:
+                data = GetResults(room[0]).data
+                return Response(data, status=status.HTTP_200_OK)
+            return Response({'Room Not Found': 'Invalid Room Code.'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'Bad Request':'Code parameter not found in request'}, status=status.HTTP_400_BAD_REQUEST)
 
 class CreateResultView(generics.ListCreateAPIView):
     serializer_class = CreateResults

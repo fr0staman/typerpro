@@ -15,5 +15,5 @@ urlpatterns = [
     path('create-user', CreatePlayersView.as_view()), 
     path('get-user', GetPlayerView.as_view()),
     path('create-result', CreateResultView.as_view()),
-    path('get-results', GetResultsView.as_view())
+    path('get-result', GetResultsView.as_view())
 ]

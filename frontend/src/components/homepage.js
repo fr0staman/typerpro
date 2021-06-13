@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import { DataGrid } from "@material-ui/data-grid";
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,7 +23,6 @@ const theme = createMuiTheme({
     subtitle1: {
       fontSize: 32,
       fontFamily: "Montserrat",
-
       fontWeight: 600,
       lineHeight: 1.167,
       color: "#ff79c6",
@@ -30,7 +30,6 @@ const theme = createMuiTheme({
     h3: {
       fontSize: 32,
       fontFamily: "Montserrat",
-
       fontWeight: 400,
       lineHeight: 1.5,
       color: "#ff79c6",
@@ -44,11 +43,16 @@ export default class Homepage extends Component {
     this.state = {
       roomCode: null,
       username: "testing",
-      password: "testing"
+      password: "testing",
+      username_result: "tests",
+      result: 0,
+      rows: {},
     };
     this.createGuest();
     this.getUser();
     this.clearRoomCode = this.clearRoomCode.bind(this);
+    //this.fillTable();
+    this.getResults();
   }
 
   async componentDidMount() {
@@ -59,6 +63,12 @@ export default class Homepage extends Component {
           roomCode: data.code,
         });
       });
+  }
+
+  fillTable() {
+    this.setState({
+      rows: this.state.result,
+    });
   }
 
   clearRoomCode() {
@@ -73,7 +83,7 @@ export default class Homepage extends Component {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         //username: this.state.username,
-        password: this.state.password
+        password: this.state.password,
       }),
     };
     fetch("/api/create-user", requestOptions).then((response) =>
@@ -95,7 +105,32 @@ export default class Homepage extends Component {
         });
       });
   }
+
+  getResults() {
+    fetch("/api/get-result" + "?page=" + 1)
+      .then((response) => {
+        if (!response.ok) {
+          console.log("Тут щось не так");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        this.setState({
+          result: data.result,
+          username_r: data.username,
+        });
+      });
+  }
+
   render() {
+    const columns = [
+    { field: "id", headerName: "ID", width: 90},
+      { field: "result", headerName: "Result", width: 90 },
+      { field: "username", headerName: "Username", width: 150 },
+    ];
+    const rows = [
+      { id: 1, result: this.state.result, username: this.state.username_r },
+    ];
     return (
       <Router>
         <ThemeProvider theme={theme}>
@@ -120,7 +155,16 @@ export default class Homepage extends Component {
             </Toolbar>
           </AppBar>
         </ThemeProvider>
-        <div className="center">
+        {/* <div className="right">
+        <div style={{height: 800, width: '100%'}}>
+              <DataGrid
+              rows={rows}
+              columns={columns}
+              pageSize={5}
+            />
+            </div>
+        </div> */}
+        <div className="center">          
           <Switch>
             <Route exact path="/">
               <Button
@@ -135,7 +179,6 @@ export default class Homepage extends Component {
             </Route>
             <Route path="/text" component={AddText} />
             <Route path="/create" component={CreateMatch} />
-            {/* <Route path="/type" component={Typerpage} /> */}
             <Route
               path="/room/:roomCode"
               render={(props) => {
