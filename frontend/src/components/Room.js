@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { GlobalHotKeys } from "react-hotkeys";
 import { Link } from "react-router-dom";
+import { ThreeSixty } from "@material-ui/icons";
 
 const INTERVAL = 100;
 
@@ -24,7 +25,7 @@ export default class Room extends Component {
       progress: 0,
       mistakes: 0,
       nickname: "",
-      text: "test",
+      text: "Текст поки що захований...",
       votesToSkip: 2,
       guestCanPause: false,
       isHost: false,
@@ -37,8 +38,8 @@ export default class Room extends Component {
     this.getRoomDetails();
     this.leaveButtonPressed = this.leaveButtonPressed.bind(this);
     this.updateShowSetting = this.updateShowSetting.bind(this);
+    this.stopTimer = this.stopTimer.bind(this);
     this.getUser();
-    
   }
 
   leaveButtonPressed() {
@@ -64,7 +65,6 @@ export default class Room extends Component {
         });
       });
   }
-
 
   updateShowSetting(value) {
     this.setState({
@@ -101,7 +101,6 @@ export default class Room extends Component {
     //const text = texts[Math.floor(Math.random() * texts.length)];
     const words = text.split("");
     console.log(words);
-
     this.setState({
       text,
       words,
@@ -112,25 +111,34 @@ export default class Room extends Component {
   startTimer() {
     const start = Date.now();
     this.timerID = setInterval(() => {
-        let time = (Date.now() - start) / 1000 / 60
-        this.setState({ timeElapsed: time});
+      let time = (Date.now() - start) / 1000 / 60;
+      this.setState({ timeElapsed: time });
     }, 1000);
   }
 
   Countdown() {
-    const start = this.state.countTimer
-    this.timerID = setInterval(() => {
-        let time = start - 1
-        this.setState({ countTimer: time});
+    this.countID = setInterval(() => {
+      let time = this.state.countTimer - 1;
+      this.setState({ countTimer: time });
+      if (this.state.countTimer == 0) {
+        this.stopCountdown();
+        this.setText();
+        this.startTimer();
+      }
     }, 1000);
   }
 
+  stopTimer() {
+    clearInterval(this.timerID);
+  }
+
+  stopCountdown() {
+    clearInterval(this.countID);
+  }
 
   startGame = () => {
+    this.Countdown();
     this.setText();
-    this.startTimer();
-    //this.Countdown();
-
     this.setState({
       wpm: 0,
       mistakes: 0,
@@ -283,7 +291,8 @@ export default class Room extends Component {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       };
-      fetch("/api/leave-room", requestOptions)
+      fetch("/api/leave-room", requestOptions);
+      this.stopTimer();
       return (
         <div>
           <div className="container">
@@ -297,8 +306,9 @@ export default class Room extends Component {
             <h2>
               Помилки: <h5>{mistakes}</h5>
             </h2>
-            <Button color="secondary" 
-            //onClick={this.leaveButtonPressed}
+            <Button
+              color="secondary"
+              onClick={this.leaveButtonPressed}
             >
               Зіграти знову!
             </Button>
@@ -312,7 +322,7 @@ export default class Room extends Component {
         <div className="wpm">
           <strong> : </strong>
           {Math.floor(timeElapsed * 60)} {"  "}
-          {this.Countdown()} {"  "}
+          {"  "}
           {this.state.countTimer}
           <strong>Зн/хв: </strong>
           {wpm} {"  "}
@@ -345,6 +355,7 @@ export default class Room extends Component {
                 >
                   {word}
                 </span>
+                
               );
             })}
           </p>
