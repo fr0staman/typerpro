@@ -92,7 +92,7 @@ export default class Homepage extends Component {
   }
 
   getUser() {
-    fetch("/api/get-user" + "?id=" + 1)
+    fetch("/api/get-user" + "?id=" + 2)
       .then((response) => {
         if (!response.ok) {
           this.props.history.push("/create");
