@@ -31,6 +31,7 @@ export default class Room extends Component {
       nickname: "test",
       showSettings: false,
       newError: true,
+      countTimer: 5,
     };
     this.roomCode = this.props.match.params.roomCode;
     this.getRoomDetails();
@@ -48,7 +49,7 @@ export default class Room extends Component {
     fetch("/api/get-room" + "?code=" + this.roomCode)
       .then((response) => {
         if (!response.ok) {
-          this.props.leaveButtonPressed();
+          //this.props.leaveButtonPressed();
           this.props.history.push("/create");
         }
         return response.json();
@@ -108,9 +109,27 @@ export default class Room extends Component {
     });
   };
 
+  startTimer() {
+    const start = Date.now();
+    this.timerID = setInterval(() => {
+        let time = (Date.now() - start) / 1000 / 60
+        this.setState({ timeElapsed: time});
+    }, 1000);
+  }
+
+  Countdown() {
+    const start = this.state.countTimer
+    this.timerID = setInterval(() => {
+        let time = start - 1
+        this.setState({ countTimer: time});
+    }, 1000);
+  }
+
+
   startGame = () => {
     this.setText();
     this.startTimer();
+    //this.Countdown();
 
     this.setState({
       wpm: 0,
@@ -194,14 +213,6 @@ export default class Room extends Component {
     this.calculateWPM();
   };
 
-  startTimer() {
-    const start = Date.now();
-    this.timerID = setInterval(() => {
-        let time = (Date.now() - start) / 1000 / 60
-        this.setState({ timeElapsed: time});
-    }, 1000);
-  }
-
   calculateWPM = () => {
     const { startTime, completedWords } = this.state;
     const now = Date.now();
@@ -239,7 +250,7 @@ export default class Room extends Component {
       inputValue,
       completedWords,
       wpm,
-      timeElapsed = Clockers(),
+      timeElapsed,
       started,
       completed,
       progress,
@@ -286,7 +297,9 @@ export default class Room extends Component {
             <h2>
               Помилки: <h5>{mistakes}</h5>
             </h2>
-            <Button color="secondary" onClick={this.leaveButtonPressed}>
+            <Button color="secondary" 
+            //onClick={this.leaveButtonPressed}
+            >
               Зіграти знову!
             </Button>
           </div>
@@ -297,8 +310,10 @@ export default class Room extends Component {
     return (
       <div>
         <div className="wpm">
-          <strong> Час: </strong>
-          {Math.floor(timeElapsed * 60)} секунд{"  "}
+          <strong> : </strong>
+          {Math.floor(timeElapsed * 60)} {"  "}
+          {this.Countdown()} {"  "}
+          {this.state.countTimer}
           <strong>Зн/хв: </strong>
           {wpm} {"  "}
           <strong>Помилки: </strong>
