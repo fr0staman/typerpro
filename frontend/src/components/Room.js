@@ -36,7 +36,8 @@ export default class Room extends Component {
     this.getRoomDetails();
     this.leaveButtonPressed = this.leaveButtonPressed.bind(this);
     this.updateShowSetting = this.updateShowSetting.bind(this);
-    this.getUser()
+    this.getUser();
+    
   }
 
   leaveButtonPressed() {
@@ -109,6 +110,7 @@ export default class Room extends Component {
 
   startGame = () => {
     this.setText();
+    this.startTimer();
 
     this.setState({
       wpm: 0,
@@ -192,6 +194,14 @@ export default class Room extends Component {
     this.calculateWPM();
   };
 
+  startTimer() {
+    const start = Date.now();
+    this.timerID = setInterval(() => {
+        let time = (Date.now() - start) / 1000 / 60
+        this.setState({ timeElapsed: time});
+    }, 1000);
+  }
+
   calculateWPM = () => {
     const { startTime, completedWords } = this.state;
     const now = Date.now();
@@ -209,7 +219,7 @@ export default class Room extends Component {
 
     this.setState({
       wpm,
-      timeElapsed: diff,
+      //timeElapsed: diff,
     });
   };
 
