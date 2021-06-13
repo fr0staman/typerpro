@@ -18,7 +18,7 @@ export default class CreateMatch extends Component {
       votesToSkip: this.defaultVotes,
       nickname: "test",
     };
-    this.ws = new WebSocket("ws://127.0.0.1:8888/");
+    this.ws = new WebSocket("ws://localhost:8888/");
     this.handleTyperButtonPressed = this.handleTyperButtonPressed.bind(this);
     this.handleVotesChange = this.handleVotesChange.bind(this);
     this.handleGuestCanPauseChange = this.handleGuestCanPauseChange.bind(this);
