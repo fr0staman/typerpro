@@ -39,7 +39,7 @@ export default class Room extends Component {
     this.getUser();
     this.Countdown();
   }
-
+  
   leaveButtonPressed() {
     this.props.history.push("/create");
   }
@@ -136,7 +136,11 @@ export default class Room extends Component {
       this.setState({ countTimer: time });
       if (this.state.countTimer == 2) 
         this.getRoomDetails();
+      if (this.state.countTimer == 1){
+        this.state.enabled = true;
+      }
       if (this.state.countTimer == 0) {
+        this.inputs.focus();
         this.stopCountdown();
         this.startGame();
         this.setText();
@@ -213,6 +217,7 @@ export default class Room extends Component {
           words: newWords,
           completedWords: newCompletedWords,
           completed: newWords.length === 0,
+          enabled: !this.state.completed,
           inputValue: "",
           progress,
           newError: true,
@@ -296,13 +301,14 @@ export default class Room extends Component {
     if (!text) return <p>Завантаження...</p>;
 
     if (completed) {
+      this.stopTimer();
+      this.createResult();
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       };
       fetch("/api/leave-room", requestOptions);
-      this.stopTimer();
-      this.createResult();
+      
       return (
         <div>
           <div className="container">
@@ -374,9 +380,10 @@ export default class Room extends Component {
               label="тиць сюди"
               value={inputValue}
               type="text"
-              //disabled={!this.state.enabled}
+              disabled={!this.state.enabled}
               fullWidth
               autoFocus
+              inputRef={input => this.inputs = input}
             />
           </ThemeProvider>
         </div>
